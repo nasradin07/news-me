@@ -1,0 +1,46 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-toolbar>
+      <ion-title>Registration</ion-title>
+    </ion-toolbar>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-label stacked>Username</ion-label>
+      <ion-input type="text" [(ngModel)]="username" (ionBlur)="isUsernameValid()" ></ion-input>
+    </ion-item>
+    <ion-item *ngIf="showUsernameError" >
+      <div class="error">
+        Username invalid.
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Email</ion-label>
+      <ion-input type="text" [(ngModel)]="email" (ionBlur)="isEmailValid()" ></ion-input>
+    </ion-item>
+    <ion-item *ngIf="showEmailError" >
+      <div class="error">
+        Email invalid.
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Password</ion-label>
+      <ion-input type="password" [(ngModel)]="password" (ionBlur)="isPasswordValid()"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="showPasswordError" >
+      <div class="error">
+        Password invalid. 
+      </div>
+    </ion-item>
+    <ion-item>
+      <button ion-button (click)="register()">Register</button>
+      <button ion-button (click)="goBack()" danger>Cancel</button>
+    </ion-item>
+  </ion-list>
+</ion-content>
