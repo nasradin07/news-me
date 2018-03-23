@@ -18,6 +18,8 @@ import { ConfigurationPage } from '../pages/configuration/configuration';
 import { LoginProvider } from '../providers/login/login';
 import { RegisterProvider } from '../providers/register/register';
 import { ValidationProvider } from '../providers/validation/validation';
+import { ConfigurationProvider } from '../providers/configuration/configuration';
+import { HistoryProvider } from '../providers/history/history';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { ValidationProvider } from '../providers/validation/validation';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     LoginProvider,
     RegisterProvider,
-    ValidationProvider
+    ValidationProvider,
+    ConfigurationProvider,
+    HistoryProvider
   ]
 })
 export class AppModule {}

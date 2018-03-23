@@ -1,24 +1,44 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
-/**
- * Generated class for the ConfigurationPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { ConfigurationProvider } from '../../providers/configuration/configuration';
 
 @Component({
   selector: 'page-configuration',
   templateUrl: 'configuration.html',
 })
 export class ConfigurationPage {
+  userPreferedTheme: string;
+  themes: any = ['bela', 'crna'];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  newsCategories: any = ['sport', 'zdravlje'];
+  userPreferedCategories: any;
+
+  newsSource: any = ['bbc', 'cnn'];
+  userPreferedNewsSource: any;
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    private _configurationProvider: ConfigurationProvider
+  ) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ConfigurationPage');
   }
+
+  public sendUserConfiguration() {
+    this._configurationProvider.sendConfiguration({
+      themes: this.userPreferedTheme,
+      categories: this.userPreferedCategories,
+      sources: this.userPreferedNewsSource
+    });
+  }
+
+  public cancel() {
+    console.log('Canceling');
+  }
+
+
 
 }
