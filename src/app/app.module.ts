@@ -8,12 +8,14 @@ import { HttpClientModule } from '@angular/common/http';
 // PAGES  
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { HeaderPage } from '../pages/header/header';
 import { LoginPage } from '../pages/login/login';
 import { RegistrationPage } from '../pages/registration/registration';
 import { HistoryPage } from '../pages/history/history';
 import { ConfigurationPage } from '../pages/configuration/configuration';
 
+// COMPONENTS
+import { HeaderComponent } from '../components/header/header';
+import { SearchComponent } from '../components/search/search';
 // PROVIDERS
 import { LoginProvider } from '../providers/login/login';
 import { RegisterProvider } from '../providers/register/register';
@@ -25,11 +27,12 @@ import { HistoryProvider } from '../providers/history/history';
   declarations: [
     MyApp,
     HomePage,
-    HeaderPage,
     LoginPage,
     RegistrationPage,
     HistoryPage,
-    ConfigurationPage
+    ConfigurationPage,
+    HeaderComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -41,11 +44,12 @@ import { HistoryProvider } from '../providers/history/history';
     MyApp,
     HomePage,
     LoginPage,
-    HeaderPage,
     LoginPage,
     RegistrationPage,
     HistoryPage,
-    ConfigurationPage
+    ConfigurationPage,
+    HeaderComponent,
+    SearchComponent
   ],
   providers: [
     StatusBar,

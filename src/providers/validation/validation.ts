@@ -22,8 +22,18 @@ export class ValidationProvider {
     return regex.test(username);
   }
 
-  public isUserRegistrationInputValid(username, email, password) {
-    return this.validateUsername(username) && this.validateEmail(email) && this.validatePassword(password);
+  public validateYearOfBirth(year) {
+    const regex = /\d\d\d\d/;
+    const firstDigit = parseInt(year[0], 10);
+    const isFirstDigitValid = firstDigit <= 2 && firstDigit != 0;
+    return regex.test(year) && isFirstDigitValid;
+  }
+
+  public isUserRegistrationInputValid(username, email, password, year) {
+    return this.validateUsername(username) && 
+      this.validateEmail(email) && 
+      this.validatePassword(password) &&
+      this.validateYearOfBirth(year);
   }
 
   public isUserLoginInputValid(email, password) {

@@ -11,6 +11,9 @@
 
 <ion-content padding>
   <ion-list>
+    <ion-item *ngIf="registrationError.show">
+      {{registrationError.message}}
+    </ion-item>
     <ion-item>
       <ion-label stacked>Username</ion-label>
       <ion-input type="text" [(ngModel)]="username" (ionBlur)="isUsernameValid()" ></ion-input>
@@ -36,6 +39,15 @@
     <ion-item *ngIf="showPasswordError" >
       <div class="error">
         Password invalid. 
+      </div>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Year of birth</ion-label>
+      <ion-input type="text" [(ngModel)]="yearOfBirth" (ionBlur)="isYearOfBirthValid()"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="showYearOfBirthError">
+      <div class="error">
+        Year invalid.
       </div>
     </ion-item>
     <ion-item>
