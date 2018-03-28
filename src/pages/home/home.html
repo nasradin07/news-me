@@ -2,5 +2,17 @@
 
 <ion-content padding>
   <br><br><br>
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+  Home
+
+  <ion-footer>
+    <ion-grid>
+      <ion-row>
+        <ion-col *ngFor="let category of categories">
+          <button ion-button (click)="openPage(category.name)" >
+            <ion-icon name="{{category.iconName}}"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-footer>
 </ion-content>

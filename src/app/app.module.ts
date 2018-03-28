@@ -12,10 +12,13 @@ import { LoginPage } from '../pages/login/login';
 import { RegistrationPage } from '../pages/registration/registration';
 import { HistoryPage } from '../pages/history/history';
 import { ConfigurationPage } from '../pages/configuration/configuration';
+import { CategoryPage } from '../pages/category/category';
 
 // COMPONENTS
 import { HeaderComponent } from '../components/header/header';
 import { SearchComponent } from '../components/search/search';
+import { LeftMenuComponent } from '../components/left-menu/left-menu';
+import { RightMenuComponent } from '../components/right-menu/right-menu';
 // PROVIDERS
 import { LoginProvider } from '../providers/login/login';
 import { RegisterProvider } from '../providers/register/register';
@@ -32,7 +35,10 @@ import { HistoryProvider } from '../providers/history/history';
     HistoryPage,
     ConfigurationPage,
     HeaderComponent,
-    SearchComponent
+    SearchComponent,
+    CategoryPage,
+    LeftMenuComponent,
+    RightMenuComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +55,10 @@ import { HistoryProvider } from '../providers/history/history';
     HistoryPage,
     ConfigurationPage,
     HeaderComponent,
-    SearchComponent
+    SearchComponent,
+    CategoryPage,
+    LeftMenuComponent,
+    RightMenuComponent
   ],
   providers: [
     StatusBar,

@@ -4,12 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
-
-import { LoginPage } from '../pages/login/login';
-import { RegistrationPage } from '../pages/registration/registration';
-import { HistoryPage } from '../pages/history/history';
-import { ConfigurationPage } from '../pages/configuration/configuration';
-
+import { CategoryPage } from '../pages/category/category';
 
 @Component({
   templateUrl: 'app.html'
@@ -19,7 +14,7 @@ export class MyApp {
 
   rootPage: any = HomePage;
 
-  leftMenuPages: Array<{title: string, component: any}>;
+  leftMenuPages: Array<{title: string, component: any, params: any}>;
   rightMenuPages: Array<{title: string, component: any}>;
 
   constructor(
@@ -31,14 +26,9 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.leftMenuPages = [
-      { title: 'Home', component: HomePage }    
+      { title: 'Sport', component: CategoryPage, params: { category: 'Sport' } },
+      { title: 'General', component: CategoryPage, params: { cateegory: 'General'}}    
     ];
-    this.rightMenuPages = [
-      { title: 'Login', component: LoginPage },
-      { title: 'Registration', component: RegistrationPage },
-      { title: 'History', component: HistoryPage },
-      { title: 'Configuration', component: ConfigurationPage }
-    ]
   }
 
   initializeApp() {
@@ -50,9 +40,13 @@ export class MyApp {
     });
   }
 
-  openPage(page) {
+  openRightPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.push(page.component);
+  }
+
+  openLeftPage(page) {
+    this.nav.push(page.component, page.params);
   }
 }

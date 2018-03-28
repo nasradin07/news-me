@@ -1,34 +1,5 @@
-<ion-menu [content]="content" side="left">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Menu1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<left-menu [content]="content" ></left-menu>
 
-  <ion-content>
-    <ion-list>
-      <ion-item>
-        <search></search>
-      </ion-item>
-    </ion-list>
-  </ion-content>
-
-</ion-menu>
-
-<ion-menu [content]="content" side="right">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Menu2</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <ion-content>
-    <ion-list>
-        <button menuClose="right" ion-item *ngFor="let p of rightMenuPages" (click)="openPage(p)" >
-          {{p.title}}
-        </button>
-      </ion-list>
-  </ion-content>
-</ion-menu>
+<right-menu [content]="content"></right-menu>
 
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
