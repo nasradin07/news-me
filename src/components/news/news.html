@@ -1,0 +1,9 @@
+<!-- Generated template for the NewsComponent component -->
+<ion-card>
+  <ion-card-content>
+    <ion-card-title>{{news.title}}</ion-card-title>
+  <img src="{{news.urlToImage}}">
+    <p>{{news.description}}</p>
+    <button ion-button (click)="goToSource(news.url)" >Go to source</button>
+  </ion-card-content>
+</ion-card>

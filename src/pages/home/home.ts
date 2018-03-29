@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
 
+import { NewsProvider } from '../../providers/news/news';
+
 import { LoginPage } from '../login/login';
 import { CategoryPage } from '../category/category';
 
@@ -10,17 +12,22 @@ import { CategoryPage } from '../category/category';
 })
 export class HomePage {
   categories: Array<{name: string, iconName: string}> = [
-    { name: 'General', iconName: 'albums'},
-    { name: 'Business', iconName: 'briefcase'},
-    { name: 'Technology', iconName: 'laptop' },
-    { name: 'Sport', iconName: 'football'},
-    { name: 'Entertainment', iconName: 'easel'}
+    { name: 'General News', iconName: 'albums'},
+    { name: 'Business News', iconName: 'briefcase'},
+    { name: 'Technology News', iconName: 'laptop' },
+    { name: 'Sport News', iconName: 'football'},
+    { name: 'Entertainment News', iconName: 'easel'}
   ];
   constructor(
     public navCtrl: NavController,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    private _newsProvider: NewsProvider
   ) {
 
+  }
+
+  ionViewWillEnter() {
+    this.getInitialNews();
   }
 
   public openSignInModal() {
@@ -31,6 +38,10 @@ export class HomePage {
     this.navCtrl.push(CategoryPage, {
       name: pageName
     });
+  }
+
+  public getInitialNews() {
+    this._newsProvider.getInitialNews();
   }
 
 }

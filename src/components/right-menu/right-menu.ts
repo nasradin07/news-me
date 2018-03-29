@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
 import { LoginPage } from '../../pages/login/login';
 import { RegistrationPage } from '../../pages/registration/registration';
 import { HistoryPage } from '../../pages/history/history';
 import { ConfigurationPage } from '../../pages/configuration/configuration';
+
+import { ChangePageProvider } from '../../providers/change-page/change-page';
 
 @Component({
   selector: 'right-menu',
@@ -14,7 +15,7 @@ export class RightMenuComponent {
   menuPages: Array<{title: string, component: any}>;
 
   constructor(
-    public modCtrl: ModalController
+    private _changePageProvidder: ChangePageProvider
   ) {
     this.menuPages = [
       { title: 'Login', component: LoginPage },
@@ -27,6 +28,6 @@ export class RightMenuComponent {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    //this.navCtrl.push(page.component);
+    this._changePageProvidder.changePage(page.component);
   }
 }

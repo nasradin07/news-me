@@ -10,8 +10,8 @@
         <ion-item>
           <search></search>
         </ion-item>
-        <button menuClose="left" ion-item >
-          Cao
+        <button menuClose="left" *ngFor="let source of sources" ion-item  (click)="goToSource()" >
+          {{source}}
         </button>
       </ion-list>
     </ion-content>

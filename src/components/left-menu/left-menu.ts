@@ -1,17 +1,35 @@
 import { Component, Input } from '@angular/core';
-import { NavController } from 'ionic-angular';
+
+import { LeftMenuProvider } from '../../providers/left-menu/left-menu';
 @Component({
   selector: 'left-menu',
   templateUrl: 'left-menu.html'
 })
 export class LeftMenuComponent {
   @Input() content;
-  text: string;
+  sources: any;
 
   constructor(
+    private _leftMenuProviders: LeftMenuProvider
   ) {
-    console.log('Hello LeftMenuComponent Component');
-    this.text = 'Hello World';
+  }
+
+  ionViewWillEnter() {
+    this._subscibeToSourcesFetchEvent();
+  }
+
+  private _subscibeToSourcesFetchEvent() {
+    this._leftMenuProviders.sourcesFetchEvent$.subscribe(
+      sources => this.sources = sources
+    )
+  }
+
+  public goToSource() {
+    console.log('go to source');
+  }
+
+  ionViewWillLeave() {
+  
   }
 
 }

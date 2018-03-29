@@ -13,18 +13,26 @@ import { RegistrationPage } from '../pages/registration/registration';
 import { HistoryPage } from '../pages/history/history';
 import { ConfigurationPage } from '../pages/configuration/configuration';
 import { CategoryPage } from '../pages/category/category';
+import { SourceNewsPage } from '../pages/source-news/source-news';
 
 // COMPONENTS
 import { HeaderComponent } from '../components/header/header';
 import { SearchComponent } from '../components/search/search';
 import { LeftMenuComponent } from '../components/left-menu/left-menu';
 import { RightMenuComponent } from '../components/right-menu/right-menu';
+import { NewsComponent } from '../components/news/news';
+
 // PROVIDERS
 import { LoginProvider } from '../providers/login/login';
 import { RegisterProvider } from '../providers/register/register';
 import { ValidationProvider } from '../providers/validation/validation';
 import { ConfigurationProvider } from '../providers/configuration/configuration';
 import { HistoryProvider } from '../providers/history/history';
+import { ChangePageProvider } from '../providers/change-page/change-page';
+import { NewsProvider } from '../providers/news/news';
+import { NewsFilterProvider } from '../providers/news-filter/news-filter';
+import { LeftMenuProvider } from '../providers/left-menu/left-menu';
+
 
 @NgModule({
   declarations: [
@@ -38,7 +46,9 @@ import { HistoryProvider } from '../providers/history/history';
     SearchComponent,
     CategoryPage,
     LeftMenuComponent,
-    RightMenuComponent
+    RightMenuComponent,
+    NewsComponent,
+    SourceNewsPage
   ],
   imports: [
     BrowserModule,
@@ -58,7 +68,9 @@ import { HistoryProvider } from '../providers/history/history';
     SearchComponent,
     CategoryPage,
     LeftMenuComponent,
-    RightMenuComponent
+    RightMenuComponent,
+    NewsComponent,
+    SourceNewsPage
   ],
   providers: [
     StatusBar,
@@ -68,7 +80,11 @@ import { HistoryProvider } from '../providers/history/history';
     RegisterProvider,
     ValidationProvider,
     ConfigurationProvider,
-    HistoryProvider
+    HistoryProvider,
+    ChangePageProvider,
+    NewsProvider,
+    NewsFilterProvider,
+    LeftMenuProvider
   ]
 })
 export class AppModule {}

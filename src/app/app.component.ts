@@ -2,33 +2,27 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Subscription } from 'rxjs/Subscription';
+
+import { ChangePageProvider } from '../providers/change-page/change-page';
 
 import { HomePage } from '../pages/home/home';
-import { CategoryPage } from '../pages/category/category';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-
   rootPage: any = HomePage;
-
-  leftMenuPages: Array<{title: string, component: any, params: any}>;
-  rightMenuPages: Array<{title: string, component: any}>;
 
   constructor(
     public platform: Platform, 
     public statusBar: StatusBar, 
-    public splashScreen: SplashScreen
+    public splashScreen: SplashScreen,
+    private _changePageProvider: ChangePageProvider
   ) {
     this.initializeApp();
-
-    // used for an example of ngFor and navigation
-    this.leftMenuPages = [
-      { title: 'Sport', component: CategoryPage, params: { category: 'Sport' } },
-      { title: 'General', component: CategoryPage, params: { cateegory: 'General'}}    
-    ];
+    this.listenForChangePageEvent();
   }
 
   initializeApp() {
@@ -40,13 +34,12 @@ export class MyApp {
     });
   }
 
-  openRightPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
-    this.nav.push(page.component);
+  
+
+  public listenForChangePageEvent() {
+    this._changePageProvider.changePageEvent$.subscribe(
+     (page, params?) =>  this.nav.push(page, params)
+    );
   }
 
-  openLeftPage(page) {
-    this.nav.push(page.component, page.params);
-  }
 }
