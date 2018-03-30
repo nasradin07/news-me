@@ -1,6 +1,9 @@
 import { Component, Input } from '@angular/core';
 
 import { LeftMenuProvider } from '../../providers/left-menu/left-menu';
+import { ChangePageProvider } from '../../providers/change-page/change-page';
+
+import { SourceNewsPage } from '../../pages/source-news/source-news'
 @Component({
   selector: 'left-menu',
   templateUrl: 'left-menu.html'
@@ -10,22 +13,26 @@ export class LeftMenuComponent {
   sources: any;
 
   constructor(
-    private _leftMenuProviders: LeftMenuProvider
+    private _leftMenuProvider: LeftMenuProvider,
+    private _changePageProvider: ChangePageProvider
   ) {
-  }
-
-  ionViewWillEnter() {
     this._subscibeToSourcesFetchEvent();
   }
 
+
   private _subscibeToSourcesFetchEvent() {
-    this._leftMenuProviders.sourcesFetchEvent$.subscribe(
-      sources => this.sources = sources
-    )
+    this._leftMenuProvider.sourcesFetchEvent$.subscribe(
+      sources => {
+        this.sources = sources;
+      }
+    );
   }
 
-  public goToSource() {
-    console.log('go to source');
+  public goToSource(source) {
+    const params = {
+      source: source
+    };
+    this._changePageProvider.changePage(SourceNewsPage, params);
   }
 
   ionViewWillLeave() {

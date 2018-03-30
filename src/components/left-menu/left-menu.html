@@ -1,4 +1,4 @@
-<ion-menu [content]="content" side="left" persistent="true">
+<ion-menu [content]="content" side="left" persistent="true" hideBackButton >
     <ion-header>
       <ion-toolbar>
         <ion-title>Menu1</ion-title>
@@ -10,7 +10,7 @@
         <ion-item>
           <search></search>
         </ion-item>
-        <button menuClose="left" *ngFor="let source of sources" ion-item  (click)="goToSource()" >
+        <button menuClose="left" *ngFor="let source of sources" ion-item  (click)="goToSource(source)" >
           {{source}}
         </button>
       </ion-list>

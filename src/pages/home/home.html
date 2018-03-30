@@ -2,7 +2,7 @@
 
 <ion-content padding>
   <br><br><br>
-  Home
+  <news-component *ngFor="let n of newsForDisplay" [news]="n"></news-component>
 
   <ion-footer>
     <ion-grid>

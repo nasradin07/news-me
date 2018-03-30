@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
-
+import { Subscription } from 'rxjs/Subscription';
 import { NewsProvider } from '../../providers/news/news';
 
 import { LoginPage } from '../login/login';
@@ -18,6 +18,10 @@ export class HomePage {
     { name: 'Sport News', iconName: 'football'},
     { name: 'Entertainment News', iconName: 'easel'}
   ];
+
+  topNews: any;
+  newsForDisplay: any;
+  _subscriptions: Subscription[] = []
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
@@ -27,7 +31,7 @@ export class HomePage {
   }
 
   ionViewWillEnter() {
-    this.getInitialNews();
+    this.getTopHeadlines();
   }
 
   public openSignInModal() {
@@ -40,8 +44,13 @@ export class HomePage {
     });
   }
 
-  public getInitialNews() {
-    this._newsProvider.getInitialNews();
+  public getTopHeadlines() {
+    this.topNews = this._newsProvider.getTopHeadlines();
+    this.newsForDisplay = this.topNews.slice(1,15);
+  }
+
+  ionViewWillLeave() {
+    this._subscriptions.forEach( subscription => subscription.unsubscribe());
   }
 
 }

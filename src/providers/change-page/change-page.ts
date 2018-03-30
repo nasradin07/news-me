@@ -10,7 +10,11 @@ export class ChangePageProvider {
   }
 
   public changePage(page, params?) {
-    this._changePage.next(page);
+    if ( params === undefined) {
+    this._changePage.next({ page: page});
+    } else {
+      this._changePage.next({ page: page, params: params})
+    }
   }
 
 }

@@ -27,7 +27,8 @@ export class CategoryPage {
     const categoryName  = this.mutateCategoryNameForComparison(this.category);
     this.newsByCategory = this.getCategoryNews(categoryName);
     this.showNews = this.newsByCategory.slice(1,15);
-    this.getNewsBySourceAndSendSourcesToLeftMenu();
+    this.sortNewsBySource(this.newsByCategory);
+    this.sendNewsSourcesToLeftMenu();
   }
 
   public mutateCategoryNameForComparison(categoryName) {
@@ -35,20 +36,15 @@ export class CategoryPage {
   }
 
   public getCategoryNews(categoryName) {
-    return this._newsProvider.newsByCategory.find(category => category.categoryName === categoryName).news;
+    return this._newsProvider.getNewsByCategoryName(categoryName);
   }
 
-  public getNewsBySourceAndSendSourcesToLeftMenu() {
-    const newsBySource = this.getSources();
-    this.sendSourcesToLeftMenu(newsBySource);
+  public sortNewsBySource(news) {
+    this._newsProvider.sortNewsBySource(news);
   }
 
-  public getSources() {
-    return this._newsFilterProvider.filterBySource(this.newsByCategory);
-  }
-
-  public sendSourcesToLeftMenu(newsBySource) {
-    this._leftMenuProvider.sendSourcesToLeftMenu(newsBySource);
+  public sendNewsSourcesToLeftMenu() {
+    this._newsProvider.sendSourcesToLeftMenu();
   }
 
 }

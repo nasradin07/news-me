@@ -15,8 +15,6 @@ export class HeaderComponent {
   text: string;
 
   constructor() {
-    console.log('Hello HeaderComponent Component');
-    this.text = 'Hello World';
   }
 
 }

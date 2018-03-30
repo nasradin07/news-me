@@ -6,14 +6,12 @@ export class LeftMenuProvider {
   private _sendSources = new Subject();
   public sourcesFetchEvent$ = this._sendSources.asObservable();
 
-  sources: any;
   constructor() {
     
   }
 
   public sendSourcesToLeftMenu(sources) {
-    this.sources = sources;
-    this._sendSources.next(Object.keys(sources));
+    this._sendSources.next(sources);
   }
 
 }

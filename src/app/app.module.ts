@@ -14,6 +14,7 @@ import { HistoryPage } from '../pages/history/history';
 import { ConfigurationPage } from '../pages/configuration/configuration';
 import { CategoryPage } from '../pages/category/category';
 import { SourceNewsPage } from '../pages/source-news/source-news';
+import { SpinnerPage } from '../pages/spinner/spinner';
 
 // COMPONENTS
 import { HeaderComponent } from '../components/header/header';
@@ -32,6 +33,7 @@ import { ChangePageProvider } from '../providers/change-page/change-page';
 import { NewsProvider } from '../providers/news/news';
 import { NewsFilterProvider } from '../providers/news-filter/news-filter';
 import { LeftMenuProvider } from '../providers/left-menu/left-menu';
+import { InitialConfigurationProvider } from '../providers/initial-configuration/initial-configuration';
 
 
 @NgModule({
@@ -48,7 +50,8 @@ import { LeftMenuProvider } from '../providers/left-menu/left-menu';
     LeftMenuComponent,
     RightMenuComponent,
     NewsComponent,
-    SourceNewsPage
+    SourceNewsPage,
+    SpinnerPage
   ],
   imports: [
     BrowserModule,
@@ -70,7 +73,8 @@ import { LeftMenuProvider } from '../providers/left-menu/left-menu';
     LeftMenuComponent,
     RightMenuComponent,
     NewsComponent,
-    SourceNewsPage
+    SourceNewsPage,
+    SpinnerPage
   ],
   providers: [
     StatusBar,
@@ -84,7 +88,8 @@ import { LeftMenuProvider } from '../providers/left-menu/left-menu';
     ChangePageProvider,
     NewsProvider,
     NewsFilterProvider,
-    LeftMenuProvider
+    LeftMenuProvider,
+    InitialConfigurationProvider
   ]
 })
 export class AppModule {}
