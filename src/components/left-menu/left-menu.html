@@ -6,12 +6,20 @@
     </ion-header>
   
     <ion-content>
-      <ion-list>
+      <ion-list *ngIf="showSources" >
         <ion-item>
           <search></search>
         </ion-item>
         <button menuClose="left" *ngFor="let source of sources" ion-item  (click)="goToSource(source)" >
           {{source}}
+        </button>
+      </ion-list>
+      <ion-list *ngIf="showNews" >
+        <ion-item>
+          <search></search>
+        </ion-item>
+        <button menuClose="left" *ngFor="let article of news" ion-item  (click)="showArticle(article)" >
+          {{article.title}}
         </button>
       </ion-list>
     </ion-content>

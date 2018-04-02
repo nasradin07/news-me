@@ -24,7 +24,6 @@ export class ConfigurationPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ConfigurationPage');
   }
 
   public sendUserConfiguration() {

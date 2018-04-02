@@ -15,6 +15,7 @@ import { ConfigurationPage } from '../pages/configuration/configuration';
 import { CategoryPage } from '../pages/category/category';
 import { SourceNewsPage } from '../pages/source-news/source-news';
 import { SpinnerPage } from '../pages/spinner/spinner';
+import { SingleArticlePage } from '../pages/single-article/single-article';
 
 // COMPONENTS
 import { HeaderComponent } from '../components/header/header';
@@ -51,7 +52,8 @@ import { InitialConfigurationProvider } from '../providers/initial-configuration
     RightMenuComponent,
     NewsComponent,
     SourceNewsPage,
-    SpinnerPage
+    SpinnerPage,
+    SingleArticlePage
   ],
   imports: [
     BrowserModule,
@@ -74,7 +76,8 @@ import { InitialConfigurationProvider } from '../providers/initial-configuration
     RightMenuComponent,
     NewsComponent,
     SourceNewsPage,
-    SpinnerPage
+    SpinnerPage,
+    SingleArticlePage
   ],
   providers: [
     StatusBar,
