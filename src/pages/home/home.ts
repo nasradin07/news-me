@@ -21,6 +21,7 @@ export class HomePage {
 
   topNews: any;
   newsForDisplay: any;
+
   _subscriptions: Subscription[] = []
   constructor(
     public navCtrl: NavController,
@@ -32,6 +33,8 @@ export class HomePage {
 
   ionViewWillEnter() {
     this.getTopHeadlines();
+    this.sortAllNewsBySource();
+    this.sendSourcesToLeftMenu();
   }
 
   public openSignInModal() {
@@ -47,6 +50,14 @@ export class HomePage {
   public getTopHeadlines() {
     this.topNews = this._newsProvider.getTopHeadlines();
     this.newsForDisplay = this.topNews.slice(1,15);
+  }
+
+  public sortAllNewsBySource() {
+    this._newsProvider.sortAllNewsBySource();
+  }
+
+  public sendSourcesToLeftMenu() {
+    this._newsProvider.sendSourcesToLeftMenu();
   }
 
   ionViewWillLeave() {

@@ -18,6 +18,7 @@ export class SourceNewsPage {
 
   ionViewDidLoad() {
     this.news = this._newsProvider.getNewsBySource(this.source);
+    console.log(this.news.length);
   }
 
 }

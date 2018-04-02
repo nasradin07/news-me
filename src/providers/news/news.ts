@@ -35,8 +35,14 @@ export class NewsProvider {
   }
 
   public sortNewsBySource(news) {
-    this.newsBySource = this._newsFilterProvider.filterBySource(news);
+    const source = {};
+    this.newsBySource = this._newsFilterProvider.filterBySource(news, source);
   }
+
+  public sortAllNewsBySource() {
+    const allNews = this._initialConfigurationProvider.getAllNews();
+    this.newsBySource = this._newsFilterProvider.filterAllNewsBySources(allNews);
+  } 
 
   public sendSourcesToLeftMenu() {
     const sources = Object.keys(this.newsBySource);

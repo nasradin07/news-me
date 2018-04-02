@@ -27,6 +27,10 @@ export class InitialConfigurationProvider {
       );
   }
 
+  public getAllNews() {
+    return this.allNews;
+  }
+
   public sendNotification(param) {
     this._sendNotification.next(param);
   }
