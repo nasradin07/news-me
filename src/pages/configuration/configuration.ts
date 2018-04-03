@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
-import { ConfigurationProvider } from '../../providers/configuration/configuration';
+import { ConfigurationProvider } from '../../providers/configuration';
 
 @Component({
   selector: 'page-configuration',

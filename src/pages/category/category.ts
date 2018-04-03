@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
-import { NewsProvider } from '../../providers/news/news';
-import { NewsFilterProvider } from '../../providers/news-filter/news-filter';
-import { LeftMenuProvider } from '../../providers/left-menu/left-menu';
+import { NewsProvider } from '../../providers/news';
+import { NewsFilterProvider } from '../../providers/news-filter';
+import { LeftMenuProvider } from '../../providers/left-menu';
 
 @Component({
   selector: 'page-category',

@@ -2,12 +2,10 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, Spinner } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { Subscription } from 'rxjs/Subscription';
 
-import { ChangePageProvider } from '../providers/change-page/change-page';
-import { InitialConfigurationProvider } from '../providers/initial-configuration/initial-configuration';
+import { ChangePageProvider } from '../providers/change-page';
+import { InitialConfigurationProvider } from '../providers/initial-configuration';
 
-import { HomePage } from '../pages/home/home';
 import { SpinnerPage } from '../pages/spinner/spinner';
 
 @Component({

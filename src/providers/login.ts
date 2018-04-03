@@ -2,14 +2,18 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 
+import { UserProvider } from './user';
 
 @Injectable()
 export class LoginProvider {
   private _url: string = 'http://api-news-me.ml/public/login';
+  private _user;
   private _messageSubject = new Subject();
   public sendMessage$ = this._messageSubject.asObservable();
-  constructor(private _http: HttpClient) {
-    console.log('Hello LoginProvider Provider');
+  constructor(
+    private _http: HttpClient,
+    private _userProvider: UserProvider
+  ) {
   }
 
   public login(email, password) {
@@ -32,11 +36,12 @@ export class LoginProvider {
   }
   
   public handleResponse(response) {
-      const success = {
-        status: 'success',
-        message: 'You have successfully signed in'
-      };
-      this._sendSuccessMessage(success);
+    this._userProvider.takeUserData(response);
+    const success = {
+      status: 'success',
+      message: 'You have successfully signed in'
+    };
+    this._sendSuccessMessage(success);
   }
 
   private _sendErrorMessage(error) {

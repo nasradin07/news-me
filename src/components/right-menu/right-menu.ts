@@ -4,7 +4,7 @@ import { RegistrationPage } from '../../pages/registration/registration';
 import { HistoryPage } from '../../pages/history/history';
 import { ConfigurationPage } from '../../pages/configuration/configuration';
 
-import { ChangePageProvider } from '../../providers/change-page/change-page';
+import { ChangePageProvider } from '../../providers/change-page';
 
 @Component({
   selector: 'right-menu',

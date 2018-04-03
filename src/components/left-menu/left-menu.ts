@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
-import { LeftMenuProvider } from '../../providers/left-menu/left-menu';
-import { ChangePageProvider } from '../../providers/change-page/change-page';
-import { NewsProvider } from '../../providers/news/news'; 
+import { LeftMenuProvider } from '../../providers/left-menu';
+import { ChangePageProvider } from '../../providers/change-page';
+import { NewsProvider } from '../../providers/news'; 
 
 import { SourceNewsPage } from '../../pages/source-news/source-news'
 import { SingleArticlePage } from '../../pages/single-article/single-article';

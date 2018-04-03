@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
 import { Subscription } from 'rxjs/Subscription';
-import { NewsProvider } from '../../providers/news/news';
+import { NewsProvider } from '../../providers/news';
 
 import { LoginPage } from '../login/login';
 import { CategoryPage } from '../category/category';

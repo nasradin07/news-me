@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {Subject} from 'rxjs/Subject';
 
-import { InitialConfigurationProvider } from '../initial-configuration/initial-configuration';
-import { NewsFilterProvider } from '../news-filter/news-filter'; 
-import { LeftMenuProvider } from '../left-menu/left-menu';;
+import { InitialConfigurationProvider } from './initial-configuration';
+import { NewsFilterProvider } from './news-filter'; 
+import { LeftMenuProvider } from './left-menu';
 
 @Injectable()
 export class NewsProvider {

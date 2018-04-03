@@ -3,8 +3,8 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Subscription } from 'rxjs/Subscription';
 
 // PROVIDERS
-import { LoginProvider } from '../../providers/login/login';
-import { ValidationProvider } from '../../providers/validation/validation';
+import { LoginProvider } from '../../providers/login';
+import { ValidationProvider } from '../../providers/validation';
 
 // PAGES
 import { HomePage } from '../home/home';
@@ -45,6 +45,7 @@ export class LoginPage {
             this._changeDetectRef.detectChanges();
           } else {
             this.goToHome();
+            console.log('Going to home');
           }
         }
       )

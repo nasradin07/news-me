@@ -4,6 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpClientModule } from '@angular/common/http';
+import { IonicStorageModule } from '@ionic/storage';
 
 // PAGES  
 import { MyApp } from './app.component';
@@ -25,17 +26,18 @@ import { RightMenuComponent } from '../components/right-menu/right-menu';
 import { NewsComponent } from '../components/news/news';
 
 // PROVIDERS
-import { LoginProvider } from '../providers/login/login';
-import { RegisterProvider } from '../providers/register/register';
-import { ValidationProvider } from '../providers/validation/validation';
-import { ConfigurationProvider } from '../providers/configuration/configuration';
-import { HistoryProvider } from '../providers/history/history';
-import { ChangePageProvider } from '../providers/change-page/change-page';
-import { NewsProvider } from '../providers/news/news';
-import { NewsFilterProvider } from '../providers/news-filter/news-filter';
-import { LeftMenuProvider } from '../providers/left-menu/left-menu';
-import { InitialConfigurationProvider } from '../providers/initial-configuration/initial-configuration';
-
+import { LoginProvider } from '../providers/login';
+import { RegisterProvider } from '../providers/register';
+import { ValidationProvider } from '../providers/validation';
+import { ConfigurationProvider } from '../providers/configuration';
+import { HistoryProvider } from '../providers/history';
+import { ChangePageProvider } from '../providers/change-page';
+import { NewsProvider } from '../providers/news';
+import { NewsFilterProvider } from '../providers/news-filter';
+import { LeftMenuProvider } from '../providers/left-menu';
+import { InitialConfigurationProvider } from '../providers/initial-configuration';
+import { UserProvider } from '../providers/user';
+import { StorageProvider } from '../providers/storage';
 
 @NgModule({
   declarations: [
@@ -59,6 +61,7 @@ import { InitialConfigurationProvider } from '../providers/initial-configuration
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -92,7 +95,9 @@ import { InitialConfigurationProvider } from '../providers/initial-configuration
     NewsProvider,
     NewsFilterProvider,
     LeftMenuProvider,
-    InitialConfigurationProvider
+    InitialConfigurationProvider,
+    UserProvider,
+    StorageProvider
   ]
 })
 export class AppModule {}

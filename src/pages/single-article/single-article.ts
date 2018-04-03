@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
-import { LeftMenuProvider } from '../../providers/left-menu/left-menu';
+import { LeftMenuProvider } from '../../providers/left-menu';
 
 @Component({
   selector: 'page-single-article',
@@ -28,6 +28,14 @@ export class SingleArticlePage {
 
   public goToSource() {
     window.location.href = this.article.url;
+  }
+
+  public like() {
+    console.log('like');
+  }
+
+  public dislike() {
+    console.log('dislike');
   }
 
 }

@@ -3,8 +3,8 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Subscription } from 'rxjs/Subscription';
 
 // PROVIDES
-import { ValidationProvider } from '../../providers/validation/validation';
-import { RegisterProvider } from '../../providers/register/register';
+import { ValidationProvider } from '../../providers/validation';
+import { RegisterProvider } from '../../providers/register';
 
 // PAGES
 import { HomePage } from '../home/home';
@@ -44,8 +44,10 @@ export class RegistrationPage {
             this.registrationError.show = true;
             this.registrationError.message = registrationResponse['message'];
             this._changeDetectorRef.detectChanges();
+            console.log(registrationResponse);
           } else {
             this.goToHomePage();
+            console.log('Going to home');
           }
         }
       )
@@ -64,7 +66,8 @@ export class RegistrationPage {
     const username = this.username.trim();
     const email = this.email.trim();
     const password = this.password.trim();
-    this._registerProvider.register(username, email, password);
+    const birthYear = parseInt(this.yearOfBirth.trim(), 10);
+    this._registerProvider.register(username, email, password, birthYear);
 
   }
 

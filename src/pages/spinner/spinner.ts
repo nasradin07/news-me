@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Subscription } from 'rxjs/Subscription';
 
-import { InitialConfigurationProvider } from '../../providers/initial-configuration/initial-configuration';
+import { InitialConfigurationProvider } from '../../providers/initial-configuration';
 
 import { HomePage } from '../home/home';
 

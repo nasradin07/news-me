@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavParams } from 'ionic-angular';
 
-import { NewsProvider } from '../../providers/news/news';
+import { NewsProvider } from '../../providers/news';
 @Component({
   selector: 'page-source-news',
   templateUrl: 'source-news.html',
