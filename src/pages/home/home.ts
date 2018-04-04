@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
 import { Subscription } from 'rxjs/Subscription';
 import { NewsProvider } from '../../providers/news';
+import { InitialConfigurationProvider} from '../../providers/initial-configuration';
 
 import { LoginPage } from '../login/login';
 import { CategoryPage } from '../category/category';
@@ -26,15 +27,20 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
-    private _newsProvider: NewsProvider
+    private _newsProvider: NewsProvider,
+    public initial: InitialConfigurationProvider,
+    private _changeDetectRef: ChangeDetectorRef
   ) {
 
   }
 
   ionViewWillEnter() {
-    this.getTopHeadlines();
-    this.sortAllNewsBySource();
-    this.sendSourcesToLeftMenu();
+    setTimeout(() => {console.log('calling now');
+      this.getTopHeadlines();
+      this.sortAllNewsBySource();
+      this.sendSourcesToLeftMenu();
+      this._changeDetectRef.detectChanges();
+      ;}, 3000);
   }
 
   public openSignInModal() {

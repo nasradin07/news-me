@@ -38,6 +38,7 @@ import { LeftMenuProvider } from '../providers/left-menu';
 import { InitialConfigurationProvider } from '../providers/initial-configuration';
 import { UserProvider } from '../providers/user';
 import { StorageProvider } from '../providers/storage';
+import { LikeProvider } from '../providers/like';
 
 @NgModule({
   declarations: [
@@ -97,7 +98,8 @@ import { StorageProvider } from '../providers/storage';
     LeftMenuProvider,
     InitialConfigurationProvider,
     UserProvider,
-    StorageProvider
+    StorageProvider,
+    LikeProvider
   ]
 })
 export class AppModule {}

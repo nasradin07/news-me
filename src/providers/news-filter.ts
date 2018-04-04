@@ -4,12 +4,13 @@ import { Injectable } from '@angular/core';
 export class NewsFilterProvider {
   newsBySource: any;
   sources: any;
-  constructor() {
+  constructor(
     
-  }
+  ) { }
 
   public filterBySource(allNews, sources) {
-    allNews.forEach(news => {
+    allNews.forEach((news) => {
+      const newsId = news._id;
       const newsSource = news.source;
       if (sources[newsSource] === undefined) {
         sources[newsSource] = [];
@@ -23,11 +24,15 @@ export class NewsFilterProvider {
 
   public filterAllNewsBySources(allNews) {
     const sources = {};
-    allNews.forEach(newsByCategory => {
-      this.filterBySource(newsByCategory.news, sources);
+   // console.log(allNews);
+    allNews.forEach(a => {
+     // console.log(a);
+    //  console.log(newsByCategory.news);
+      //this.filterBySource(newsByCategory.news, sources);
     });
-
     return sources;
   }
+
+ 
 
 }

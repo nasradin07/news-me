@@ -17,7 +17,7 @@ export class UserProvider {
     public addArticleToVisitedNews(newsId) {
         let action = {
             "action": "addNewsToVisited",
-            "userEmail": this._user['email'],
+            "userEmail": this.getUserEmail(),
             "newsId":newsId
         };
         this._http.post(this._actionUrl, action)
@@ -30,5 +30,17 @@ export class UserProvider {
         } else if (this._user !== undefined) {
             return true;
         }
+    }
+
+    public getUserVisitedNews() {
+        if (this.isUserLoggedIn() === false) {
+            return null;
+        } else {
+            return this._user['visitedNews'];
+        }
+    }
+
+    public getUserEmail() {
+        return this._user['email'];
     }
 }

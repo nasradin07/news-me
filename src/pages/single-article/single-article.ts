@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 import { LeftMenuProvider } from '../../providers/left-menu';
+import { LikeProvider } from '../../providers/like';
 
 @Component({
   selector: 'page-single-article',
@@ -11,7 +12,8 @@ export class SingleArticlePage {
   article: any;
   date: any;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private _leftMenuProvider: LeftMenuProvider
+    private _leftMenuProvider: LeftMenuProvider,
+    private _likeProvider: LikeProvider
   ) {
     this.article = this.navParams.get('article');
   }
@@ -30,8 +32,8 @@ export class SingleArticlePage {
     window.location.href = this.article.url;
   }
 
-  public like() {
-    console.log('like');
+  public like(newsId) {
+    this._likeProvider.like(newsId);
   }
 
   public dislike() {
