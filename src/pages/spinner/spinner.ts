@@ -27,7 +27,6 @@ export class SpinnerPage {
       this._initialConfigurationProvider.initialConfigurationFetchEvent$.subscribe(
         notification => {
           if (notification === true) {
-            console.log('GotNotification');
             this.navCtrl.setRoot(HomePage);
           }
         }

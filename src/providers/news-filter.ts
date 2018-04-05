@@ -24,11 +24,8 @@ export class NewsFilterProvider {
 
   public filterAllNewsBySources(allNews) {
     const sources = {};
-   // console.log(allNews);
-    allNews.forEach(a => {
-     // console.log(a);
-    //  console.log(newsByCategory.news);
-      //this.filterBySource(newsByCategory.news, sources);
+    allNews.forEach(newsByCategory => {
+      this.filterBySource(newsByCategory.news, sources);
     });
     return sources;
   }

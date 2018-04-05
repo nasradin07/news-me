@@ -29,56 +29,59 @@ export class InitialConfigurationProvider {
     this.http.get(this._url)
       .subscribe(
           initialConfiguration => {
-            const allNews = initialConfiguration["newsCategories"];
-            /*allNews.forEach(  newsByCategory => {
-              const newsSortedByCategory = {
+          const allNews = initialConfiguration["newsCategories"];
+          const viewedNewsIdPromise = this.getNewsIdInLocalStorage(); 
+          viewedNewsIdPromise.then(viewedNewsId => {
+            allNews.forEach(newsByCategory => {
+              const newsWithoutSeenNews = {
                 categoryName: newsByCategory.categoryName,
                 news: []
               };
-              newsByCategory.news.forEach(  news => {
-                this.checkIfNewsIsAlreadySeen(news._id).then(
-                  isNewsAlreadySeen => {
-                    if (isNewsAlreadySeen[0] === true || isNewsAlreadySeen[1]){
-                      this.pushSeenNewsToNewsHistory(news);
-                      return;
-                    }
-                    newsSortedByCategory.news.push(news);
-                    this.allNews.push(newsSortedByCategory);
-                  }
-                );
-              });        
-            });*/
-          this.filterSeenNews(allNews).then(val => {
-            console.log('resolved');
-            this.sendNotification(val);
-            
-          });
+              newsByCategory.news.forEach(news => {
+                const isNewsSeen = this.checkIfNewsWasSeen(viewedNewsId, news._id);
+                if (isNewsSeen === true) {
+                  this._historyProvider.addNewsToVisitedNews(news);
+                  return;
+                } else {
+                  newsWithoutSeenNews.news.push(news);
+                }
+              });
+             this.allNews.push(newsWithoutSeenNews);
+            });
+          }).then(() => {this.sendNotification(true);console.log(this.allNews)});
           this.clientConfiguration = initialConfiguration['clientConfiguration'];
           },
         err => console.log(err)
       );
   }
 
-  public filterSeenNews(allNews) {
-      allNews.forEach( newsByCategory => {
-        const newsSortedByCategory = {
-          categoryName: newsByCategory.categoryName,
-          news: []
-        };
-        newsByCategory.news.forEach(  news => {
-          this.checkIfNewsIsAlreadySeen(news._id).then(
-            isNewsAlreadySeen => {
-              if (isNewsAlreadySeen[0] === true || isNewsAlreadySeen[1]){
-                this.pushSeenNewsToNewsHistory(news);
-                return;
-              }
-              newsSortedByCategory.news.push(news);
-              this.allNews.push(newsSortedByCategory);
-            }
-          );
-        });     
-      }); 
-      return new Promise(resolve =>resolve(true));
+  public filterNewsByCategory(viewedNewsId, newsByCategory) {
+    const newsWithoutSeenNews = {
+      categoryName: newsByCategory.categoryName,
+      news: []
+    };
+    newsByCategory.news.forEach(news => {
+      const isNewsSeen = this.checkIfNewsWasSeen(viewedNewsId, news._id);
+      if (isNewsSeen === true) {
+        this._historyProvider.addNewsToVisitedNews(news);
+        return;
+      } else {
+        newsWithoutSeenNews.news.push(news);
+      }
+    });
+    return newsWithoutSeenNews;
+  }
+
+  public filterNews(newsInCategory) {
+    /*newsInCategory.forEach(news => {
+      const isNewsSeen = this.checkIfNewsWasSeen(viewedNewsId, news._id);
+      if (isNewsSeen === true) {
+        this._historyProvider.addNewsToVisitedNews(news);
+        return true;
+      } else {
+        newsWithoutSeenNews.news.push(news);
+      }
+    });*/
   }
 
   public pushSeenNewsToNewsHistory(news) {
@@ -93,15 +96,10 @@ export class InitialConfigurationProvider {
     this._sendNotification.next(param);
   }
 
-  public checkIfNewsIsAlreadySeen(newsId) {
-    return Promise.all([
-      this.checkIfNewsIdIsInUserVisitedNews(newsId),
-      this.getNewsIdInLocalStorage().
-        then(visitedNewsIds => {
-          const isNewsIdInStorage = this.isNewsIdInStorage(visitedNewsIds, newsId);
-          return isNewsIdInStorage;
-        })
-    ]);
+  public checkIfNewsWasSeen(viewedNewsId, newsId) {
+    const isNewsIdInStorage = this.isNewsIdInStorage(viewedNewsId, newsId);
+    const isNewsIdInUserVisitedNews = this.checkIfNewsIdIsInUserVisitedNews(newsId);
+    return isNewsIdInStorage && isNewsIdInUserVisitedNews;
   }
 
   public getNewsIdInLocalStorage() {
@@ -136,4 +134,6 @@ export class InitialConfigurationProvider {
       return userVisitedNews.find(visitedNewsId => visitedNewsId === newsId)
     }
   }
+
+  processN
 }

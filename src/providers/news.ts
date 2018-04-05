@@ -24,7 +24,6 @@ export class NewsProvider {
     this.newsInCurrentCategory = this._initialConfigurationProvider.allNews.find(
       newsByCategory => newsByCategory.categoryName === 'top-headlines'
     );
-    //console.log('After searching too headlines', '\n', this._initialConfigurationProvider.allNews);
     return this.newsInCurrentCategory.news;
   }
 
@@ -42,9 +41,7 @@ export class NewsProvider {
 
   public sortAllNewsBySource() {
     const allNews = this._initialConfigurationProvider.getAllNews();
-    //console.log('Before sorting all','\n',JSON.stringify(this._initialConfigurationProvider.allNews));
     this.newsBySource = this._newsFilterProvider.filterAllNewsBySources(allNews);
-    //console.log('After sorting all','\n',JSON.stringify(this._initialConfigurationProvider.allNews));
   } 
 
   public sendSourcesToLeftMenu() {

@@ -35,12 +35,11 @@ export class HomePage {
   }
 
   ionViewWillEnter() {
-    setTimeout(() => {console.log('calling now');
-      this.getTopHeadlines();
-      this.sortAllNewsBySource();
-      this.sendSourcesToLeftMenu();
-      this._changeDetectRef.detectChanges();
-      ;}, 3000);
+    console.log('Entering');
+    this.getTopHeadlines();
+    this.sortAllNewsBySource();
+    this.sendSourcesToLeftMenu();
+    this._changeDetectRef.detectChanges();
   }
 
   public openSignInModal() {
