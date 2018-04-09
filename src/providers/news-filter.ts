@@ -30,6 +30,15 @@ export class NewsFilterProvider {
     return sources;
   }
 
+  public filterDisplayedNews(news, displayedNews) {
+    console.log(news);
+    displayedNews.forEach( articleDisplayed => {
+      news.filter( article => article._id === articleDisplayed._id );
+    });
+    console.log(news);
+    return news;
+  }
+
  
 
 }

@@ -9,8 +9,8 @@ export class HistoryProvider {
     
   }
 
-  public addNewsToVisitedNews(news_id) {
-    
+  public addNewsToVisitedNews(news) {
+    this.seenNews.push(news);
   }
 
 }

@@ -5,6 +5,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
+import { CacheModule } from 'ionic-cache';
 
 // PAGES  
 import { MyApp } from './app.component';
@@ -39,6 +40,8 @@ import { InitialConfigurationProvider } from '../providers/initial-configuration
 import { UserProvider } from '../providers/user';
 import { StorageProvider } from '../providers/storage';
 import { LikeProvider } from '../providers/like';
+import { PagesProvider } from '../providers/pages';
+import { CacheProvider } from '../providers/cache';
 
 @NgModule({
   declarations: [
@@ -62,7 +65,8 @@ import { LikeProvider } from '../providers/like';
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    CacheModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -99,7 +103,9 @@ import { LikeProvider } from '../providers/like';
     InitialConfigurationProvider,
     UserProvider,
     StorageProvider,
-    LikeProvider
+    LikeProvider,
+    PagesProvider,
+    CacheProvider
   ]
 })
 export class AppModule {}

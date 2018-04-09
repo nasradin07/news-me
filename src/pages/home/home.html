@@ -2,8 +2,13 @@
 
 <ion-content padding>
   <br><br><br>
+  <ion-row>
+    <button ion-button small *ngFor="let numOfPage of pages" (click)="showPage(numOfPage)">
+      {{numOfPage}}
+    </button>
+  </ion-row>
   <news-component *ngFor="let n of newsForDisplay" [news]="n"></news-component>
-
+  <br><br>
   <ion-footer>
     <ion-grid>
       <ion-row>

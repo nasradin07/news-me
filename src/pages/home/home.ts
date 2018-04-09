@@ -1,8 +1,11 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
 import { Subscription } from 'rxjs/Subscription';
+
 import { NewsProvider } from '../../providers/news';
 import { InitialConfigurationProvider} from '../../providers/initial-configuration';
+import { PagesProvider } from '../../providers/pages';
+import { CacheProvider } from '../../providers/cache';
 
 import { LoginPage } from '../login/login';
 import { CategoryPage } from '../category/category';
@@ -20,8 +23,9 @@ export class HomePage {
     { name: 'Entertainment News', iconName: 'easel'}
   ];
 
-  topNews: any;
+  newsInCategory: any;
   newsForDisplay: any;
+  pages: any = [];
 
   _subscriptions: Subscription[] = []
   constructor(
@@ -29,17 +33,28 @@ export class HomePage {
     public modalCtrl: ModalController,
     private _newsProvider: NewsProvider,
     public initial: InitialConfigurationProvider,
-    private _changeDetectRef: ChangeDetectorRef
+    private _pagesProvider: PagesProvider,
+    private _changeDetectRef: ChangeDetectorRef,
+    private _cacheProvider: CacheProvider
   ) {
 
   }
 
   ionViewWillEnter() {
-    console.log('Entering');
     this.getTopHeadlines();
     this.sortAllNewsBySource();
     this.sendSourcesToLeftMenu();
+    this.getNumberOfPages();
     this._changeDetectRef.detectChanges();
+  }
+
+  public getNumberOfPages() {
+    let numOfNews = this.newsInCategory.length;
+    this.pages = this._pagesProvider.getNumberOfPages(numOfNews);
+  }
+
+  public showPage(numOfPage) {
+    this.setNewsForDisplay(this._pagesProvider.showNews(this.newsInCategory, numOfPage));
   }
 
   public openSignInModal() {
@@ -53,8 +68,13 @@ export class HomePage {
   }
 
   public getTopHeadlines() {
-    this.topNews = this._newsProvider.getTopHeadlines();
-    this.newsForDisplay = this.topNews.slice(1,15);
+    this.newsInCategory = this._newsProvider.getTopHeadlines();
+    this.setNewsForDisplay(this.newsInCategory.slice(1,15));
+  }
+
+  public setNewsForDisplay(news) {
+    this.newsForDisplay = news;
+    this._cacheProvider.removeNewsFromCache('test', news,'top-headlines');
   }
 
   public sortAllNewsBySource() {

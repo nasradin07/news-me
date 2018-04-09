@@ -14,5 +14,8 @@
 </ion-header>
 
 <ion-content padding>
-  <news-component *ngFor="let news of showNews" [news]="news" ></news-component>
+  <ion-row>
+    <button ion-button *ngFor="let pageNum of pages" (click)="showPage(pageNum)" small>{{pageNum}}</button>
+  </ion-row>
+  <news-component *ngFor="let news of newsForDisplay" [news]="news" ></news-component>
 </ion-content>

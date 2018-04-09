@@ -6,6 +6,7 @@ import { NewsFilterProvider } from '../providers/news-filter';
 import { UserProvider } from '../providers/user';
 import { StorageProvider } from '../providers/storage';
 import { HistoryProvider } from '../providers/history';
+import { CacheProvider } from '../providers/cache';
 
 @Injectable()
 export class InitialConfigurationProvider {
@@ -18,75 +19,49 @@ export class InitialConfigurationProvider {
 
   constructor(
     public http: HttpClient,
-    private _newsFilterProvider: NewsFilterProvider,
     private _userProvider: UserProvider,
     private _storageProvider: StorageProvider,
-    private _historyProvider: HistoryProvider
-  ) {
+    private _historyProvider: HistoryProvider,
+    private _cacheProvider: CacheProvider
+  ) { }
 
-  }
   getInitialConfiguration() {
-    this.http.get(this._url)
-      .subscribe(
-          initialConfiguration => {
-          const allNews = initialConfiguration["newsCategories"];
-          const viewedNewsIdPromise = this.getNewsIdInLocalStorage(); 
-          viewedNewsIdPromise.then(viewedNewsId => {
-            allNews.forEach(newsByCategory => {
-              const newsWithoutSeenNews = {
-                categoryName: newsByCategory.categoryName,
-                news: []
-              };
-              newsByCategory.news.forEach(news => {
-                const isNewsSeen = this.checkIfNewsWasSeen(viewedNewsId, news._id);
-                if (isNewsSeen === true) {
-                  this._historyProvider.addNewsToVisitedNews(news);
-                  return;
-                } else {
-                  newsWithoutSeenNews.news.push(news);
-                }
-              });
-             this.allNews.push(newsWithoutSeenNews);
-            });
-          }).then(() => {this.sendNotification(true);console.log(this.allNews)});
-          this.clientConfiguration = initialConfiguration['clientConfiguration'];
-          },
-        err => console.log(err)
-      );
+    let request = this.http.get(this._url);
+    let cacheKey = this._url;
+    this._cacheProvider.cacheRequest(this._url, request).subscribe(
+      initialConfiguration => {
+      const allNews = initialConfiguration["newsCategories"];
+      this.getNewsIdInLocalStorage().then(viewedNewsId => {
+        this.filterUserSeenNews(allNews, viewedNewsId);
+      }).then(() => {
+        this._cacheProvider.saveNewsToCache('test', this.allNews);
+        this.sendNotification(true);
+      });
+      this.clientConfiguration = initialConfiguration['clientConfiguration'];
+      },
+    err => console.log(err)
+  );
   }
 
-  public filterNewsByCategory(viewedNewsId, newsByCategory) {
-    const newsWithoutSeenNews = {
-      categoryName: newsByCategory.categoryName,
-      news: []
-    };
-    newsByCategory.news.forEach(news => {
-      const isNewsSeen = this.checkIfNewsWasSeen(viewedNewsId, news._id);
-      if (isNewsSeen === true) {
-        this._historyProvider.addNewsToVisitedNews(news);
-        return;
-      } else {
-        newsWithoutSeenNews.news.push(news);
-      }
+  filterUserSeenNews(allNews, viewedNewsId) {
+    allNews.forEach(newsByCategory => {
+      const newsWithoutSeenNews = {
+        categoryName: newsByCategory.categoryName,
+        news: []
+      };
+      newsByCategory.news.forEach(news => {
+        const isNewsSeen = this.checkIfNewsWasSeen(viewedNewsId, news._id);
+        if (isNewsSeen === true) {
+          this._historyProvider.addNewsToVisitedNews(news);
+          return;
+        } else {
+          newsWithoutSeenNews.news.push(news);
+        }
+      });
+     this.allNews.push(newsWithoutSeenNews);
     });
-    return newsWithoutSeenNews;
   }
 
-  public filterNews(newsInCategory) {
-    /*newsInCategory.forEach(news => {
-      const isNewsSeen = this.checkIfNewsWasSeen(viewedNewsId, news._id);
-      if (isNewsSeen === true) {
-        this._historyProvider.addNewsToVisitedNews(news);
-        return true;
-      } else {
-        newsWithoutSeenNews.news.push(news);
-      }
-    });*/
-  }
-
-  public pushSeenNewsToNewsHistory(news) {
-    this._historyProvider.seenNews.push(news);
-  }
 
   public getAllNews() {
     return this.allNews;
@@ -99,7 +74,7 @@ export class InitialConfigurationProvider {
   public checkIfNewsWasSeen(viewedNewsId, newsId) {
     const isNewsIdInStorage = this.isNewsIdInStorage(viewedNewsId, newsId);
     const isNewsIdInUserVisitedNews = this.checkIfNewsIdIsInUserVisitedNews(newsId);
-    return isNewsIdInStorage && isNewsIdInUserVisitedNews;
+    return isNewsIdInStorage || isNewsIdInUserVisitedNews;
   }
 
   public getNewsIdInLocalStorage() {
@@ -111,19 +86,13 @@ export class InitialConfigurationProvider {
     return this._storageProvider.getVisitedNews();
   }
 
-  public isNewsIdInStorage(visitedNews, newsId) {
-    if (visitedNews === null) {
+  public isNewsIdInStorage(visitedNews = [], newsId) {
+    if( visitedNews === null) {
       return;
     }
-    const newsIdInStorage = visitedNews.find(newsIdInStorage => {
+    return  !!(visitedNews.find(newsIdInStorage => {
       return newsIdInStorage === newsId;
-    });
-
-    if (newsIdInStorage === undefined) {
-      return false;
-    } else {
-      return true;
-    }
+    }));
   }
 
   public checkIfNewsIdIsInUserVisitedNews(newsId) {
@@ -135,5 +104,4 @@ export class InitialConfigurationProvider {
     }
   }
 
-  processN
 }
