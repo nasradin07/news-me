@@ -12,11 +12,13 @@ import { SingleArticlePage } from '../../pages/single-article/single-article';
 })
 export class NewsComponent {
   @Input() news;
+  imageUrl = '';
   constructor(
     private _changePageProvider: ChangePageProvider,
     private _userProvider: UserProvider,
     private _storageProvider: StorageProvider
   ) {
+  
   }
 
   public showArticle() {

@@ -3,8 +3,6 @@ import { NavController, ModalController } from 'ionic-angular';
 import { Subscription } from 'rxjs/Subscription';
 
 import { NewsProvider } from '../../providers/news';
-import { InitialConfigurationProvider} from '../../providers/initial-configuration';
-import { PagesProvider } from '../../providers/pages';
 import { CacheProvider } from '../../providers/cache';
 
 import { LoginPage } from '../login/login';
@@ -25,37 +23,39 @@ export class HomePage {
 
   newsInCategory: any;
   newsForDisplay: any;
-  pages: any = [];
-
+  currIndex: number = 0;
   _subscriptions: Subscription[] = []
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
     private _newsProvider: NewsProvider,
-    public initial: InitialConfigurationProvider,
-    private _pagesProvider: PagesProvider,
     private _changeDetectRef: ChangeDetectorRef,
     private _cacheProvider: CacheProvider
-  ) {
-
-  }
+  ) { }
 
   ionViewWillEnter() {
     this.getTopHeadlines();
     this.sortAllNewsBySource();
     this.sendSourcesToLeftMenu();
-    this.getNumberOfPages();
     this._changeDetectRef.detectChanges();
   }
 
-  public getNumberOfPages() {
-    let numOfNews = this.newsInCategory.length;
-    this.pages = this._pagesProvider.getNumberOfPages(numOfNews);
+  public loadMoreNews(infinitiveScroll) {
+    this.currIndex += 1;
+    let news, start, end;
+    start = this.currIndex*15;
+    end = start + 15;
+    if ( end > this.newsInCategory.length) {
+      news = this.newsInCategory.slice(start);
+    } else {
+      news = this.newsInCategory.slice(start,end);
+    }
+    news.forEach( article => this.newsForDisplay.push(article));
+    infinitiveScroll.complete();
+    this._changeDetectRef.detectChanges();
+    this.removeNewsFromCache(news);
   }
 
-  public showPage(numOfPage) {
-    this.setNewsForDisplay(this._pagesProvider.showNews(this.newsInCategory, numOfPage));
-  }
 
   public openSignInModal() {
     this.navCtrl.push(LoginPage);
@@ -69,12 +69,16 @@ export class HomePage {
 
   public getTopHeadlines() {
     this.newsInCategory = this._newsProvider.getTopHeadlines();
-    this.setNewsForDisplay(this.newsInCategory.slice(1,15));
+    this.setNewsForDisplay(this.newsInCategory.slice(0,15));
   }
 
   public setNewsForDisplay(news) {
     this.newsForDisplay = news;
-    this._cacheProvider.removeNewsFromCache('test', news,'top-headlines');
+    this.removeNewsFromCache(news);
+  }
+
+  public removeNewsFromCache(news) {
+    this._cacheProvider.removeNewsFromCache(news,'top-headlines');
   }
 
   public sortAllNewsBySource() {

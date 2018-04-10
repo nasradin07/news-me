@@ -14,8 +14,8 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-row>
-    <button ion-button *ngFor="let pageNum of pages" (click)="showPage(pageNum)" small>{{pageNum}}</button>
-  </ion-row>
   <news-component *ngFor="let news of newsForDisplay" [news]="news" ></news-component>
+  <ion-infinite-scroll (ionInfinite)="loadMoreNews($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

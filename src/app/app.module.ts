@@ -40,7 +40,6 @@ import { InitialConfigurationProvider } from '../providers/initial-configuration
 import { UserProvider } from '../providers/user';
 import { StorageProvider } from '../providers/storage';
 import { LikeProvider } from '../providers/like';
-import { PagesProvider } from '../providers/pages';
 import { CacheProvider } from '../providers/cache';
 
 @NgModule({
@@ -104,7 +103,6 @@ import { CacheProvider } from '../providers/cache';
     UserProvider,
     StorageProvider,
     LikeProvider,
-    PagesProvider,
     CacheProvider
   ]
 })

@@ -10,7 +10,7 @@ import { CacheProvider } from '../providers/cache';
 
 @Injectable()
 export class InitialConfigurationProvider {
-  private _url: string = 'http://api-news-me.ml/public/today-news';
+  private _url: string = 'http://api-news-me.ml/public/today-news?client=mobile';
   allNews: any = [];
   clientConfiguration: any;
 
@@ -28,18 +28,18 @@ export class InitialConfigurationProvider {
   getInitialConfiguration() {
     let request = this.http.get(this._url);
     let cacheKey = this._url;
+    // this._cacheProvider.clearCache();
     this._cacheProvider.cacheRequest(this._url, request).subscribe(
       initialConfiguration => {
-      const allNews = initialConfiguration["newsCategories"];
-      this.getNewsIdInLocalStorage().then(viewedNewsId => {
-        this.filterUserSeenNews(allNews, viewedNewsId);
-      }).then(() => {
-        this._cacheProvider.saveNewsToCache('test', this.allNews);
-        this.sendNotification(true);
-      });
-      this.clientConfiguration = initialConfiguration['clientConfiguration'];
-      },
-    err => console.log(err)
+        const allNews = initialConfiguration["newsCategories"];
+        this.getNewsIdInLocalStorage().then(viewedNewsId => {
+          this.filterUserSeenNews(allNews, viewedNewsId);
+        }).then(() => {
+          this.sendNotification(true);
+        });
+        this.clientConfiguration = initialConfiguration['clientConfiguration'];
+        },
+      err => console.log(err)
   );
   }
 
@@ -60,6 +60,10 @@ export class InitialConfigurationProvider {
       });
      this.allNews.push(newsWithoutSeenNews);
     });
+  }
+
+  public getUrl() {
+    return this._url;
   }
 
 
