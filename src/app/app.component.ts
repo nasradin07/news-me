@@ -35,7 +35,7 @@ export class MyApp {
       this.splashScreen.hide();
       this.listenForChangePageEvent();
       this._initialConfigurationProvider.getInitialConfiguration();
-      this._cacheProvider.setDefaultTTP(5);
+      this._cacheProvider.setDefaultTTP(60*60*4*24);
     });
   }
 
