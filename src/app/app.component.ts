@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { ChangePageProvider } from '../providers/change-page';
 import { InitialConfigurationProvider } from '../providers/initial-configuration';
+import { CacheProvider } from '../providers/cache';
 
 import { SpinnerPage } from '../pages/spinner/spinner';
 
@@ -20,7 +21,8 @@ export class MyApp {
     public statusBar: StatusBar, 
     public splashScreen: SplashScreen,
     private _changePageProvider: ChangePageProvider,
-    private _initialConfigurationProvider: InitialConfigurationProvider
+    private _initialConfigurationProvider: InitialConfigurationProvider,
+    private _cacheProvider: CacheProvider
   ) {
     this.initializeApp();
   }
@@ -33,6 +35,7 @@ export class MyApp {
       this.splashScreen.hide();
       this.listenForChangePageEvent();
       this._initialConfigurationProvider.getInitialConfiguration();
+      this._cacheProvider.setDefaultTTP(5);
     });
   }
 

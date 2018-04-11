@@ -12,7 +12,11 @@ export class CacheProvider {
     ) {}
 
     public cacheRequest(key, request) {
-        return this._cache.loadFromDelayedObservable(key, request);
+        return this._cache.loadFromObservable(key, request);
+    }
+
+    public setDefaultTTP(time) {
+        this._cache.setDefaultTTL(time);
     }
 
     public saveInCache(key, allNews) {

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 import { ChangePageProvider } from '../../providers/change-page';
 import { UserProvider } from '../../providers/user';
@@ -10,15 +10,21 @@ import { SingleArticlePage } from '../../pages/single-article/single-article';
   selector: 'news-component',
   templateUrl: 'news.html'
 })
-export class NewsComponent {
+export class NewsComponent implements OnInit {
   @Input() news;
-  imageUrl = '';
+  imageUrl = '../../assets/imgs/default.png';
   constructor(
     private _changePageProvider: ChangePageProvider,
     private _userProvider: UserProvider,
     private _storageProvider: StorageProvider
   ) {
   
+  }
+
+  ngOnInit() {
+    if (window.navigator.onLine === true) {
+      this.imageUrl = this.news.urlToImage;
+    }
   }
 
   public showArticle() {

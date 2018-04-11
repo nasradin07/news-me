@@ -31,6 +31,7 @@ export class InitialConfigurationProvider {
     // this._cacheProvider.clearCache();
     this._cacheProvider.cacheRequest(this._url, request).subscribe(
       initialConfiguration => {
+        console.log(initialConfiguration);
         const allNews = initialConfiguration["newsCategories"];
         this.getNewsIdInLocalStorage().then(viewedNewsId => {
           this.filterUserSeenNews(allNews, viewedNewsId);
