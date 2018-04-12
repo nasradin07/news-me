@@ -10,7 +10,7 @@ import { CacheProvider } from '../providers/cache';
 
 @Injectable()
 export class InitialConfigurationProvider {
-  private _url: string = 'http://api-news-me.ml/public/today-news?client=mobile';
+  private _url: string = 'http://api-news-me.ml/public/today-newsclient=mobile';
   allNews: any = [];
   clientConfiguration: any;
 
@@ -30,18 +30,9 @@ export class InitialConfigurationProvider {
     let cacheKey = this._url;
     // this._cacheProvider.clearCache();
     this._cacheProvider.cacheRequest(this._url, request).subscribe(
-      initialConfiguration => {
-        console.log(initialConfiguration);
-        const allNews = initialConfiguration["newsCategories"];
-        this.getNewsIdInLocalStorage().then(viewedNewsId => {
-          this.filterUserSeenNews(allNews, viewedNewsId);
-        }).then(() => {
-          this.sendNotification(true);
-        });
-        this.clientConfiguration = initialConfiguration['clientConfiguration'];
-        },
-      err => console.log(err)
-  );
+      initialConfiguration => this.handleResponse(initialConfiguration),
+      err => this.handleError(err)
+    );
   }
 
   filterUserSeenNews(allNews, viewedNewsId) {
@@ -61,6 +52,24 @@ export class InitialConfigurationProvider {
       });
      this.allNews.push(newsWithoutSeenNews);
     });
+  }
+
+  public handleResponse(initialConfiguration) {
+    console.log(initialConfiguration);
+    const allNews = initialConfiguration["newsCategories"];
+    this.getNewsIdInLocalStorage().then(viewedNewsId => {
+      this.filterUserSeenNews(allNews, viewedNewsId);
+    }).then(() => {
+      this.sendNotification(true);
+    });
+    this.clientConfiguration = initialConfiguration['clientConfiguration'];
+  }
+
+  public handleError(err) {
+    let key = 'http://api-news-me.ml/public/today-news?client=mobile';
+    this._cacheProvider.getInitialConfigurationFromCache(key)
+      .then( InitialConfiguration  => this.handleResponse(InitialConfiguration) )
+      .catch(err => console.log(err));
   }
 
   public getUrl() {

@@ -26,6 +26,10 @@ export class CacheProvider {
     public getNewsFromCache(key) {
         return this._cache.getItem(key);
     }
+
+    public getInitialConfigurationFromCache(key) {
+        return this._cache.getItem(key);
+    }
     
     public removeNewsFromCache(displayedNews, categoryName?) {
         let key = this._key;
