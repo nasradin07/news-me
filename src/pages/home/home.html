@@ -1,6 +1,9 @@
 <header></header>
 
 <ion-content padding>
+  <ion-refresher (ionRefresh)="refreshApp($event)" >
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <br><br><br>
   <news-component *ngFor="let n of newsForDisplay" [news]="n"></news-component>
   <ion-infinite-scroll (ionInfinite)="loadMoreNews($event)">

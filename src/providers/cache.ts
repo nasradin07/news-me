@@ -54,7 +54,7 @@ export class CacheProvider {
                 clienConfiguration.newsCategories = filteredNews;
             }
             this.saveInCache(key, clienConfiguration);
-        });
+        }).catch(err => console.log(err));
     }
 
 

@@ -8,9 +8,10 @@ import { StorageProvider } from '../providers/storage';
 import { HistoryProvider } from '../providers/history';
 import { CacheProvider } from '../providers/cache';
 
+
 @Injectable()
 export class InitialConfigurationProvider {
-  private _url: string = 'http://api-news-me.ml/public/today-newsclient=mobile';
+  private _url: string = 'http://api-news-me.ml/public/today-news?client=mobile';
   allNews: any = [];
   clientConfiguration: any;
 
@@ -58,7 +59,9 @@ export class InitialConfigurationProvider {
     console.log(initialConfiguration);
     const allNews = initialConfiguration["newsCategories"];
     this.getNewsIdInLocalStorage().then(viewedNewsId => {
-      this.filterUserSeenNews(allNews, viewedNewsId);
+      if (viewedNewsId === null) {
+        this.filterUserSeenNews(allNews, viewedNewsId);
+      }
     }).then(() => {
       this.sendNotification(true);
     });
@@ -69,7 +72,12 @@ export class InitialConfigurationProvider {
     let key = 'http://api-news-me.ml/public/today-news?client=mobile';
     this._cacheProvider.getInitialConfigurationFromCache(key)
       .then( InitialConfiguration  => this.handleResponse(InitialConfiguration) )
-      .catch(err => console.log(err));
+      .catch(err => {
+        let key = 'http://api-news-me.ml/public/today-news?client=mobile';
+        this.http.get(key).subscribe(
+          initialConfiguration => this.handleResponse(initialConfiguration)
+        );
+      });
   }
 
   public getUrl() {

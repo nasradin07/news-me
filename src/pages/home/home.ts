@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { NewsProvider } from '../../providers/news';
 import { CacheProvider } from '../../providers/cache';
+import { InitialConfigurationProvider } from '../../providers/initial-configuration'; 
 
 import { LoginPage } from '../login/login';
 import { CategoryPage } from '../category/category';
@@ -30,7 +31,8 @@ export class HomePage {
     public modalCtrl: ModalController,
     private _newsProvider: NewsProvider,
     private _changeDetectRef: ChangeDetectorRef,
-    private _cacheProvider: CacheProvider
+    private _cacheProvider: CacheProvider,
+    private _initialConfigurationProvider: InitialConfigurationProvider
   ) { }
 
   ionViewWillEnter() {
@@ -38,6 +40,10 @@ export class HomePage {
     this.sortAllNewsBySource();
     this.sendSourcesToLeftMenu();
     this._changeDetectRef.detectChanges();
+  }
+
+  public refreshApp(event) {
+    this._initialConfigurationProvider.getInitialConfiguration();
   }
 
   public loadMoreNews(infinitiveScroll) {
