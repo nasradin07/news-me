@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 
 import { UserProvider } from './user';
+import { StorageProvider } from './storage';
 
 @Injectable()
 export class LoginProvider {
@@ -12,7 +13,8 @@ export class LoginProvider {
   public sendMessage$ = this._messageSubject.asObservable();
   constructor(
     private _http: HttpClient,
-    private _userProvider: UserProvider
+    private _userProvider: UserProvider,
+    private _storageProvider: StorageProvider
   ) {
   }
 
@@ -41,7 +43,17 @@ export class LoginProvider {
       status: 'success',
       message: 'You have successfully signed in'
     };
+    this._storageProvider.getLikedNews()
+      .then(likedNews => {
+        likedNews.forEach(likedNewsId => this._userProvider.addArticleToVisitedNews(likedNewsId));
+      }).catch(err => console.log(err));
     this._sendSuccessMessage(success);
+  }
+
+  public loginUserAutomaticly() {
+    this._storageProvider.getUserEmailAndPassword()
+      .then(data => this.login(data.email, data.password))
+      .catch(err => console.log(err));
   }
 
   private _sendErrorMessage(error) {

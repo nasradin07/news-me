@@ -15,7 +15,7 @@
 
 <ion-content padding>
 
-  <ion-list>
+  <ion-list *ngIf="!isUserLoggedIn">
     <ion-item *ngIf="error.show" >
       {{error.message}}
     </ion-item>
@@ -42,6 +42,12 @@
       <button ion-button (click)="goToRegistrationPage()">Register</button>
     </ion-item>
 
+  </ion-list>
+
+  <ion-list *ngIf="isUserLoggedIn" >
+    <ion-item>
+      <button ion-button (click)="signout()" >Sign Out</button>
+    </ion-item>
   </ion-list>
 
 </ion-content>

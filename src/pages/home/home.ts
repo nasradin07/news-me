@@ -16,7 +16,7 @@ export class HomePage {
   categories: Array<{name: string, iconName: string}> = [
     { name: 'General News', iconName: 'albums'},
     { name: 'Business News', iconName: 'briefcase'},
-    { name: 'Technology News', iconName: 'laptop' },
+    { name: 'Programming News', iconName: 'laptop' },
     { name: 'Sport News', iconName: 'football'},
     { name: 'Entertainment News', iconName: 'easel'}
   ];
@@ -43,8 +43,8 @@ export class HomePage {
   public loadMoreNews(infinitiveScroll) {
     this.currIndex += 1;
     let news, start, end;
-    start = this.currIndex*15;
-    end = start + 15;
+    start = this.currIndex*5;
+    end = start + 5;
     if ( end > this.newsInCategory.length) {
       news = this.newsInCategory.slice(start);
     } else {
@@ -69,7 +69,7 @@ export class HomePage {
 
   public getTopHeadlines() {
     this.newsInCategory = this._newsProvider.getTopHeadlines();
-    this.setNewsForDisplay(this.newsInCategory.slice(0,15));
+    this.setNewsForDisplay(this.newsInCategory.slice(0,5));
   }
 
   public setNewsForDisplay(news) {

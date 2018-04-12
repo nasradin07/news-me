@@ -22,9 +22,13 @@ export class NewsComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (window.navigator.onLine === true) {
+    if (this.checkIfDeviceIsOnline()) {
       this.imageUrl = this.news.urlToImage;
     }
+  }
+
+  public checkIfDeviceIsOnline() {
+    return window.navigator.onLine === true
   }
 
   public showArticle() {

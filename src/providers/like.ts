@@ -14,7 +14,7 @@ export class LikeProvider {
     ) {}
 
     public like(newsId) {
-        if (this._userProvider.isUserLoggedIn() === true) {
+        if (this._userProvider.isUserLoggedIn() === true && this.checkIfDeviceIsOnline() === true) {
             this.addLikedNewsIdToUserLikedNews(newsId)
         } else {
             this.addLikedNewsIdToStorage(newsId);
@@ -33,5 +33,9 @@ export class LikeProvider {
         };
         this._http.post(this._url, action)
             .subscribe( response => console.log(response), err => console.log(err));
+    }
+
+    public checkIfDeviceIsOnline() {
+        return window.navigator.onLine === true;
     }
 }

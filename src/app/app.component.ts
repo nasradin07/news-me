@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { ChangePageProvider } from '../providers/change-page';
 import { InitialConfigurationProvider } from '../providers/initial-configuration';
 import { CacheProvider } from '../providers/cache';
+import { LoginProvider } from '../providers/login';
 
 import { SpinnerPage } from '../pages/spinner/spinner';
 
@@ -22,7 +23,8 @@ export class MyApp {
     public splashScreen: SplashScreen,
     private _changePageProvider: ChangePageProvider,
     private _initialConfigurationProvider: InitialConfigurationProvider,
-    private _cacheProvider: CacheProvider
+    private _cacheProvider: CacheProvider,
+    private _loginProvider: LoginProvider
   ) {
     this.initializeApp();
   }
@@ -35,7 +37,8 @@ export class MyApp {
       this.splashScreen.hide();
       this.listenForChangePageEvent();
       this._initialConfigurationProvider.getInitialConfiguration();
-      this._cacheProvider.setDefaultTTP(60*60*4*24);
+      this._cacheProvider.setDefaultTTP(60*60*4*24);// news are stored in cache for 4 days
+      this._loginProvider.loginUserAutomaticly();
     });
   }
 

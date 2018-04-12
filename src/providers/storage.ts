@@ -6,6 +6,11 @@ export class StorageProvider {
 
   constructor(private _storage: Storage) {
   }
+
+  public saveUserEmailAndPassword(email, password) {
+    return this._storage.set('user', {email: email, password: password});
+  }
+
   public addToVisitedNews(newsId) {
     this._storage.get('visitedNews')
       .then(seenNews => {
@@ -37,6 +42,10 @@ export class StorageProvider {
         })
     }
 
+    public getLikedNews() {
+      return this._storage.get('likedNews');
+    }
+
   public initializeVisitedNewsArrayInLocalStorage() {
     return this._storage.set('visitedNews', []);
   }
@@ -47,6 +56,10 @@ export class StorageProvider {
 
   public getVisitedNews() {
     return this._storage.get('visitedNews');
+  }
+
+  public getUserEmailAndPassword() {
+    return this._storage.get('user');
   }
 
 

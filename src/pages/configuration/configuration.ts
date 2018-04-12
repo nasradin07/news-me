@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 import { ConfigurationProvider } from '../../providers/configuration';
+import { CacheProvider } from '../../providers/cache';
 
 @Component({
   selector: 'page-configuration',
@@ -19,7 +20,8 @@ export class ConfigurationPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    private _configurationProvider: ConfigurationProvider
+    private _configurationProvider: ConfigurationProvider,
+    private _cacheProvider: CacheProvider
   ) {
   }
 
@@ -32,6 +34,10 @@ export class ConfigurationPage {
       categories: this.userPreferedCategories,
       sources: this.userPreferedNewsSource
     });
+  }
+
+  public clearCache() {
+    this._cacheProvider.clearCache();
   }
 
   public cancel() {
