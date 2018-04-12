@@ -4,10 +4,12 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { NewsProvider } from '../../providers/news';
 import { CacheProvider } from '../../providers/cache';
-import { InitialConfigurationProvider } from '../../providers/initial-configuration'; 
+import { RefreshProvider } from '../../providers/refresh';
+import { ChangePageProvider } from '../../providers/change-page';
 
 import { LoginPage } from '../login/login';
 import { CategoryPage } from '../category/category';
+
 
 @Component({
   selector: 'page-home',
@@ -32,7 +34,7 @@ export class HomePage {
     private _newsProvider: NewsProvider,
     private _changeDetectRef: ChangeDetectorRef,
     private _cacheProvider: CacheProvider,
-    private _initialConfigurationProvider: InitialConfigurationProvider
+    private _refreshProvider: RefreshProvider
   ) { }
 
   ionViewWillEnter() {
@@ -43,7 +45,7 @@ export class HomePage {
   }
 
   public refreshApp(event) {
-    this._initialConfigurationProvider.getInitialConfiguration();
+    this._refreshProvider.refreshApp()
   }
 
   public loadMoreNews(infinitiveScroll) {

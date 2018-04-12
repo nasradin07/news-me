@@ -56,14 +56,17 @@ export class InitialConfigurationProvider {
   }
 
   public handleResponse(initialConfiguration) {
-    console.log(initialConfiguration);
-    const allNews = initialConfiguration["newsCategories"];
+    this.allNews = initialConfiguration["newsCategories"];
     this.getNewsIdInLocalStorage().then(viewedNewsId => {
-      if (viewedNewsId === null) {
-        this.filterUserSeenNews(allNews, viewedNewsId);
+      if (viewedNewsId !== null) {
+        this.filterUserSeenNews(this.allNews, viewedNewsId);
+        return;
       }
+      console.log('handling response');
+      return;
     }).then(() => {
       this.sendNotification(true);
+      console.log(this.allNews);
     });
     this.clientConfiguration = initialConfiguration['clientConfiguration'];
   }

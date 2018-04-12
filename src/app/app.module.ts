@@ -41,6 +41,7 @@ import { UserProvider } from '../providers/user';
 import { StorageProvider } from '../providers/storage';
 import { LikeProvider } from '../providers/like';
 import { CacheProvider } from '../providers/cache';
+import { RefreshProvider } from '../providers/refresh';
 
 @NgModule({
   declarations: [
@@ -103,7 +104,8 @@ import { CacheProvider } from '../providers/cache';
     UserProvider,
     StorageProvider,
     LikeProvider,
-    CacheProvider
+    CacheProvider,
+    RefreshProvider
   ]
 })
 export class AppModule {}
