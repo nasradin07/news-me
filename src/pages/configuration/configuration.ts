@@ -17,6 +17,7 @@ export class ConfigurationPage {
 
   newsSource: any = ['bbc', 'cnn'];
   userPreferedNewsSource: any;
+  configuration: any;
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -26,6 +27,12 @@ export class ConfigurationPage {
   }
 
   ionViewDidLoad() {
+    this.getClientConfiguration();
+  }
+
+  public getClientConfiguration() {
+    this.configuration = this._configurationProvider.getClientConfiguration();
+    console.log(this.configuration);
   }
 
   public sendUserConfiguration() {

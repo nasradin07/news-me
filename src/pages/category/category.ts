@@ -5,6 +5,7 @@ import { NewsProvider } from '../../providers/news';
 import { NewsFilterProvider } from '../../providers/news-filter';
 import { LeftMenuProvider } from '../../providers/left-menu';
 import { CacheProvider } from '../../providers/cache';
+import { ConfigurationProvider } from '../../providers/configuration';
 
 @Component({
   selector: 'page-category',
@@ -17,6 +18,7 @@ export class CategoryPage {
   newsBySource: any;
   sources: any;
   currIndex: number = 0;
+  loadMoreArticlesNum:  number;
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -24,16 +26,22 @@ export class CategoryPage {
     private _newsFilterProvider: NewsFilterProvider,
     private _leftMenuProvider: LeftMenuProvider, 
     private _cacheProvider: CacheProvider,
+    private _configurationProvider: ConfigurationProvider,
     private _changeDetectRef: ChangeDetectorRef
   ) {
     this.category = this.navParams.get('name');
   }
 
   ionViewWillLoad() {
+    this.getNumberOfArticlesToDisplay();
     this.getCategoryNews();
     this.displayNews();
     this.sortNewsBySource(this.newsInCategory);
     this.sendNewsSourcesToLeftMenu();
+  }
+
+  public getNumberOfArticlesToDisplay() {
+    this.loadMoreArticlesNum = this._configurationProvider.getNumberOfNewsArticlesForLoad();
   }
 
   public mutateCategoryNameForComparison(categoryName) {
@@ -46,7 +54,7 @@ export class CategoryPage {
   }
   
   public displayNews() {
-    this.newsForDisplay = this.newsInCategory.slice(0,15);
+    this.newsForDisplay = this.newsInCategory.slice(0,this.loadMoreArticlesNum);
     this._changeDetectRef.detectChanges();
     this._cacheProvider.removeNewsFromCache(this.newsForDisplay);
   }
@@ -62,8 +70,8 @@ export class CategoryPage {
   public loadMoreNews(infinitiveScroll) {
     this.currIndex += 1;
     let news, start, end;
-    start = this.currIndex*15;
-    end = start + 15;
+    start = this.currIndex*this.loadMoreArticlesNum;
+    end = start + this.loadMoreArticlesNum;
     if ( end > this.newsInCategory.length) {
       news = this.newsInCategory.slice(start);
     } else {

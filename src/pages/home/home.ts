@@ -6,6 +6,7 @@ import { NewsProvider } from '../../providers/news';
 import { CacheProvider } from '../../providers/cache';
 import { RefreshProvider } from '../../providers/refresh';
 import { ChangePageProvider } from '../../providers/change-page';
+import { ConfigurationProvider } from '../../providers/configuration';
 
 import { LoginPage } from '../login/login';
 import { CategoryPage } from '../category/category';
@@ -27,21 +28,28 @@ export class HomePage {
   newsInCategory: any;
   newsForDisplay: any;
   currIndex: number = 0;
-  _subscriptions: Subscription[] = []
+  _subscriptions: Subscription[] = [];
+  loadMoreArticlesNum: number;
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
     private _newsProvider: NewsProvider,
     private _changeDetectRef: ChangeDetectorRef,
     private _cacheProvider: CacheProvider,
-    private _refreshProvider: RefreshProvider
+    private _refreshProvider: RefreshProvider,
+    private _configurationProvider: ConfigurationProvider
   ) { }
 
   ionViewWillEnter() {
+    this.getNumberOfArticlesToDisplay();
     this.getTopHeadlines();
     this.sortAllNewsBySource();
     this.sendSourcesToLeftMenu();
     this._changeDetectRef.detectChanges();
+  }
+
+  public getNumberOfArticlesToDisplay() {
+    this.loadMoreArticlesNum = this._configurationProvider.getNumberOfNewsArticlesForLoad();
   }
 
   public refreshApp(event) {
@@ -51,8 +59,8 @@ export class HomePage {
   public loadMoreNews(infinitiveScroll) {
     this.currIndex += 1;
     let news, start, end;
-    start = this.currIndex*5;
-    end = start + 5;
+    start = this.currIndex*this.loadMoreArticlesNum;
+    end = start + this.loadMoreArticlesNum;
     if ( end > this.newsInCategory.length) {
       news = this.newsInCategory.slice(start);
     } else {

@@ -1,21 +1,28 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-/*
-  Generated class for the ConfigurationProvider provider.
+import { InitialConfigurationProvider } from './initial-configuration';
 
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class ConfigurationProvider {
 
-  constructor(public http: HttpClient) {
+  constructor(
+    private _http: HttpClient,
+    private _initialConfigurationProvider: InitialConfigurationProvider
+  ) {
     console.log('Hello ConfigurationProvider Provider');
   }
 
   public sendConfiguration(configuration) {
     console.log('Sending configuration', configuration);
+  }
+
+  public getClientConfiguration() {
+    return this._initialConfigurationProvider.clientConfiguration;
+  }
+
+  public getNumberOfNewsArticlesForLoad() {
+    return this._initialConfigurationProvider.clientConfiguration['loadMoreBatch'];
   }
 
 }
