@@ -43,6 +43,33 @@
 
   <ion-list>
     <ion-item>
+      <ion-label>Choose number of news shown in presenter</ion-label>
+      <ion-select [(ngModel)]="userPreferedNumberOfNews" multiple="true">
+        <ion-option *ngFor="let n of newsByCategory" value="n">{{n}}</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Choose how much news is loaded when scrolling</ion-label>
+      <ion-select [(ngModel)]="userPreferedLoadMoreBatch" multiple="true">
+        <ion-option *ngFor="let number of loadMoreBatch" value="number">{{number}}</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Enable notifications</ion-label>
+      <ion-select [(ngModel)]="enableNotifications" multiple="true">
+        <ion-option *ngFor="let option of newsSources" value="source">{{source}}</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
       <button ion-button (click)="clearCache()">Clear Cache</button>
     </ion-item>
   </ion-list>

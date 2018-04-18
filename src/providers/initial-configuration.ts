@@ -2,11 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 
-import { NewsFilterProvider } from '../providers/news-filter';
-import { UserProvider } from '../providers/user';
-import { StorageProvider } from '../providers/storage';
-import { HistoryProvider } from '../providers/history';
-import { CacheProvider } from '../providers/cache';
+import { UserProvider } from './user';
+import { StorageProvider } from './storage';
+import { HistoryProvider } from './history';
+import { CacheProvider } from './cache';
 
 
 @Injectable()
@@ -24,7 +23,7 @@ export class InitialConfigurationProvider {
     private _storageProvider: StorageProvider,
     private _historyProvider: HistoryProvider,
     private _cacheProvider: CacheProvider
-  ) { }
+    ) { }
 
   getInitialConfiguration() {
     let request = this.http.get(this._url);
@@ -37,35 +36,29 @@ export class InitialConfigurationProvider {
 
   filterUserSeenNews(allNews, viewedNewsId) {
     allNews.forEach(newsByCategory => {
-      const newsWithoutSeenNews = {
-        categoryName: newsByCategory.categoryName,
-        news: []
-      };
+      let categoryName = newsByCategory.categoryName;
+      this.allNews[categoryName] = [];
+      
       newsByCategory.news.forEach(news => {
         const isNewsSeen = this.checkIfNewsWasSeen(viewedNewsId, news._id);
         if (isNewsSeen === true) {
           this._historyProvider.addNewsToVisitedNews(news);
           return;
         } else {
-          newsWithoutSeenNews.news.push(news);
+          this.allNews[categoryName].push(news);
         }
       });
-     this.allNews.push(newsWithoutSeenNews);
     });
   }
 
   public handleResponse(initialConfiguration) {
-    this.allNews = initialConfiguration["newsCategories"];
+    let allNews = initialConfiguration["newsCategories"];
     this.getNewsIdInLocalStorage().then(viewedNewsId => {
-      if (viewedNewsId !== null) {
-        this.filterUserSeenNews(this.allNews, viewedNewsId);
-        return;
-      }
-      console.log('handling response');
+      this.allNews = {};
+      this.filterUserSeenNews(allNews, viewedNewsId);
       return;
     }).then(() => {
       this.sendNotification(true);
-      console.log(this.allNews);
     });
     this.clientConfiguration = initialConfiguration['clientConfiguration'];
   }
@@ -86,7 +79,6 @@ export class InitialConfigurationProvider {
     return this._url;
   }
 
-
   public getAllNews() {
     return this.allNews;
   }
@@ -96,6 +88,9 @@ export class InitialConfigurationProvider {
   }
 
   public checkIfNewsWasSeen(viewedNewsId, newsId) {
+    if (viewedNewsId === null) {
+      return false;
+    }
     const isNewsIdInStorage = this.isNewsIdInStorage(viewedNewsId, newsId);
     const isNewsIdInUserVisitedNews = this.checkIfNewsIdIsInUserVisitedNews(newsId);
     return isNewsIdInStorage || isNewsIdInUserVisitedNews;

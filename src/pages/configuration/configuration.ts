@@ -28,6 +28,7 @@ export class ConfigurationPage {
 
   ionViewDidLoad() {
     this.getClientConfiguration();
+    this._configurationProvider.getConfigurationOptions();
   }
 
   public getClientConfiguration() {

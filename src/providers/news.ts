@@ -21,17 +21,11 @@ export class NewsProvider {
   }
 
   public getTopHeadlines() {
-    this.newsInCurrentCategory = this._initialConfigurationProvider.allNews.find(
-      newsByCategory => newsByCategory.categoryName === 'top-headlines'
-    );
-    return this.newsInCurrentCategory.news;
+    return this._initialConfigurationProvider.allNews['top-headlines'];
   }
 
   public getNewsByCategoryName(categoryName) {
-    const categoryNews =  this._initialConfigurationProvider.allNews.find(
-      newsByCategory =>  newsByCategory.categoryName === categoryName
-    );
-    return categoryNews.news;
+    return this._initialConfigurationProvider.allNews[categoryName];
   }
 
   public sortNewsBySource(news) {

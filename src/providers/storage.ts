@@ -11,6 +11,14 @@ export class StorageProvider {
     return this._storage.set('user', {email: email, password: password});
   }
 
+  public saveData(key, data) {
+    this._storage.set(key, data).then(data => console.log('Data saved',data));
+  } 
+
+  public getData(key) {
+    return this._storage.get(key);
+  }
+
   public addToVisitedNews(newsId) {
     this._storage.get('visitedNews')
       .then(seenNews => {
@@ -28,23 +36,23 @@ export class StorageProvider {
       .catch(err => console.log(err));
     }
 
-    public addToLikedNews(newsId) {
-      this._storage.get('likedNews')
-        .then(likedNews => {
-          console.log(likedNews);
-          if (likedNews === null) {
-            this.initializeLikedNewsArrayInLocalStorage()
-              .then(() => this.addToLikedNews(newsId))
-          } else {
-            likedNews.push(newsId);
-            this._storage.set('likedNews', likedNews);
-          }
-        })
-    }
+  public addToLikedNews(newsId) {
+    this._storage.get('likedNews')
+      .then(likedNews => {
+        console.log(likedNews);
+        if (likedNews === null) {
+          this.initializeLikedNewsArrayInLocalStorage()
+            .then(() => this.addToLikedNews(newsId))
+        } else {
+          likedNews.push(newsId);
+          this._storage.set('likedNews', likedNews);
+        }
+      })
+  }
 
-    public getLikedNews() {
-      return this._storage.get('likedNews');
-    }
+  public getLikedNews() {
+    return this._storage.get('likedNews');
+  }
 
   public initializeVisitedNewsArrayInLocalStorage() {
     return this._storage.set('visitedNews', []);
@@ -61,6 +69,8 @@ export class StorageProvider {
   public getUserEmailAndPassword() {
     return this._storage.get('user');
   }
+
+  public 
 
 
 }
