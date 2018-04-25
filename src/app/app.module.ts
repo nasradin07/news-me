@@ -1,11 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { IonicApp, IonicErrorHandler, IonicModule, Footer } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { CacheModule } from 'ionic-cache';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 
 // PAGES  
 import { MyApp } from './app.component';
@@ -25,6 +26,7 @@ import { SearchComponent } from '../components/search/search';
 import { LeftMenuComponent } from '../components/left-menu/left-menu';
 import { RightMenuComponent } from '../components/right-menu/right-menu';
 import { NewsComponent } from '../components/news/news';
+import { FooterComponent } from '../components/footer/footer';
 
 // PROVIDERS
 import { LoginProvider } from '../providers/login';
@@ -59,7 +61,8 @@ import { RefreshProvider } from '../providers/refresh';
     NewsComponent,
     SourceNewsPage,
     SpinnerPage,
-    SingleArticlePage
+    SingleArticlePage,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -85,12 +88,14 @@ import { RefreshProvider } from '../providers/refresh';
     NewsComponent,
     SourceNewsPage,
     SpinnerPage,
-    SingleArticlePage
+    SingleArticlePage,
+    FooterComponent
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    InAppBrowser,
     LoginProvider,
     RegisterProvider,
     ValidationProvider,

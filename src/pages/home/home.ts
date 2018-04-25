@@ -34,6 +34,8 @@ export class HomePage {
   currIndex: number = 0;
   _subscriptions: Subscription[] = [];
   loadMoreArticlesNum: number;
+  mousepressed;
+  categoryPickerOpened: boolean;
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
@@ -52,21 +54,6 @@ export class HomePage {
     this.sortAllNewsBySource();
     this.sendSourcesToLeftMenu();
     this._changeDetectRef.detectChanges();
-  }
-
-  public changeCategory(event, categoryName) {
-    event.preventDefault();
-    this.mousepressedd = !this.mousepressedd;
-    if (this.mousepressedd === true) {
-      console.log('Runngin set')
-      setTimeout(() => {
-        if (this.mousepressedd === true) {
-          this.openCategoryPicker(categoryName);
-        }
-      }, 2000);
-    } else {
-      this.openPage(categoryName);
-    }
   }
 
   public openCategoryPicker(categoryName) {
@@ -160,13 +147,28 @@ export class HomePage {
     this.removeNewsFromCache(news);
   }
 
+  public changeCategory(event, categoryName) {
+    console.log(event);
+    event.preventDefault();
+    this.mousepressed = true;
+    console.log('change', this.mousepressed);
+    console.log('Runngin set')
+    setTimeout(() => {
+      if (this.mousepressed === true) {
+        console.log('Open');
+        this.categoryPickerOpened = true;
+      }
+    }, 2000);
+  }
+
 
   public openSignInModal() {
     this.navCtrl.push(LoginPage);
   }
 
   public openPage(pageName) {
-    this.mousepressedd = false;
+    this.mousepressed = false;
+    if (this.categoryPickerOpened === true) return;
     this.navCtrl.push(CategoryPage, {
       name: pageName
     });
@@ -197,5 +199,7 @@ export class HomePage {
   ionViewWillLeave() {
     this._subscriptions.forEach( subscription => subscription.unsubscribe());
   }
+
+  
 
 }

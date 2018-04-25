@@ -1,0 +1,12 @@
+<!-- Generated template for the FooterComponent component -->
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let category of categories">
+        <button ion-button (touchstart)="changeCategory($event,category.name)" (touchend)="changeCategory($event, category.name)">
+          <ion-icon name="{{category.iconName}}"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

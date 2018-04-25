@@ -14,7 +14,7 @@
     <ion-grid>
       <ion-row>
         <ion-col *ngFor="let category of categories">
-          <button ion-button (mousedown)="changeCategory($event,category.name)" (mouseup)="changeCategory($event, category.name)">
+          <button ion-button (touchstart)="changeCategory($event,category.name)" (touchend)="openPage(category.name)">
             <ion-icon name="{{category.iconName}}"></ion-icon>
           </button>
         </ion-col>
