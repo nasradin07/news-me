@@ -1,0 +1,8 @@
+<!-- Generated template for the OpenCategoryComponent component -->
+<replacment-list 
+[replacementListOpened]="replacementListOpened"
+[category]="category"
+></replacment-list>
+<button ion-button (touchstart)="changeCategory($event, category)" (touchend)="openPage(category.name)">
+  <ion-icon name="{{category.iconName}}"></ion-icon>
+</button>

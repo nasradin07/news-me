@@ -48,75 +48,11 @@ export class HomePage {
   ) { }
 
   ionViewWillEnter() {
-    this.getNewsConfiguration();
     this.getNumberOfArticlesToDisplay();
     this.getTopHeadlines();
     this.sortAllNewsBySource();
     this.sendSourcesToLeftMenu();
     this._changeDetectRef.detectChanges();
-  }
-
-  public openCategoryPicker(categoryName) {
-    this._alertCtrl.create({
-      title: 'Choose Category',
-      inputs: this.createInputValues(),
-      buttons: [
-        {
-          text: 'Ok',
-          role: 'cancel',
-          handler: data => this.replaceCategory(data,categoryName)
-        },
-        {
-          text: 'Cancel',
-          role: 'cancel'
-        }
-      ]
-    }).present();
-  }
-
-  public createInputValues() {
-    let notUsedCategories = this.getNotUsedCategories();
-    let inputs = [];
-    notUsedCategories.forEach(category => {
-      inputs.push({
-        type: 'checkbox',
-        label: category.name,
-        value: category
-      });
-    });
-    return inputs;
-  }
-
-  public replaceCategory(data, oldCategoryName) {
-    let newCategory = data[0];
-    this._configurationProvider.getClientNewsConfiguration()
-      .then(newsConfiguration => {
-        let indexOfOldCategory = newsConfiguration.findIndex(category => oldCategoryName === category.name);
-        console.log(indexOfOldCategory);
-        newsConfiguration[indexOfOldCategory] = newCategory;
-        this._configurationProvider.saveClientNewsConfiguration(newsConfiguration);
-        this._changeDetectRef.detectChanges();
-    });
-  }
-
-
-  public getNewsConfiguration() {
-    this._configurationProvider.getClientNewsConfiguration()
-      .then(categories => {
-        console.log(categories);
-        if (categories !== null) {
-        this.categories = categories
-        } else {
-           this.categories = this.allCategories.slice(0,5);
-           this.saveNewsConfiguration(this.categories);
-        }
-      });
-  }
-
-  public getNotUsedCategories() {
-      return this.allCategories.filter(category => {
-        return !this.categories.find(usedCategory => category.name === usedCategory.name);
-      });
   }
 
   public saveNewsConfiguration(categories) {
@@ -147,31 +83,8 @@ export class HomePage {
     this.removeNewsFromCache(news);
   }
 
-  public changeCategory(event, categoryName) {
-    console.log(event);
-    event.preventDefault();
-    this.mousepressed = true;
-    console.log('change', this.mousepressed);
-    console.log('Runngin set')
-    setTimeout(() => {
-      if (this.mousepressed === true) {
-        console.log('Open');
-        this.categoryPickerOpened = true;
-      }
-    }, 2000);
-  }
-
-
   public openSignInModal() {
     this.navCtrl.push(LoginPage);
-  }
-
-  public openPage(pageName) {
-    this.mousepressed = false;
-    if (this.categoryPickerOpened === true) return;
-    this.navCtrl.push(CategoryPage, {
-      name: pageName
-    });
   }
 
   public getTopHeadlines() {

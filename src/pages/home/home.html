@@ -9,16 +9,5 @@
   <ion-infinite-scroll (ionInfinite)="loadMoreNews($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
-  <br><br>
-  <ion-footer>
-    <ion-grid>
-      <ion-row>
-        <ion-col *ngFor="let category of categories">
-          <button ion-button (touchstart)="changeCategory($event,category.name)" (touchend)="openPage(category.name)">
-            <ion-icon name="{{category.iconName}}"></ion-icon>
-          </button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-footer>
+  <footer></footer>
 </ion-content>

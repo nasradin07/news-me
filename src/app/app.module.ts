@@ -27,6 +27,8 @@ import { LeftMenuComponent } from '../components/left-menu/left-menu';
 import { RightMenuComponent } from '../components/right-menu/right-menu';
 import { NewsComponent } from '../components/news/news';
 import { FooterComponent } from '../components/footer/footer';
+import { ReplacmentListComponent } from '../components/replacmen-list/replacment-list';
+import { OpenCategoryComponent } from '../components/open-category/open-category';
 
 // PROVIDERS
 import { LoginProvider } from '../providers/login';
@@ -62,7 +64,9 @@ import { RefreshProvider } from '../providers/refresh';
     SourceNewsPage,
     SpinnerPage,
     SingleArticlePage,
-    FooterComponent
+    FooterComponent,
+    ReplacmentListComponent,
+    OpenCategoryComponent
   ],
   imports: [
     BrowserModule,

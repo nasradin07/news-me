@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit, Input, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { CategoryPage } from '../../pages/category/category';
@@ -7,14 +7,14 @@ import { ConfigurationProvider } from '../../providers/configuration';
 import { ChangePageProvider } from '../../providers/change-page';
 
 @Component({
-  selector: 'footer',
-  templateUrl: 'footer.html'
+  selector: 'open-category-component',
+  templateUrl: './open-category.html'
 })
 
-export class FooterComponent implements OnInit{
-  categories;
+export class OpenCategoryComponent implements OnInit, OnDestroy{
+  @Input() category;
   mousepressed;
-  categoryPickerOpened: boolean;
+  replacementListOpened: boolean = false;
   private _subscriptions: Subscription[] = [];
   constructor(
     private _configurationProvider: ConfigurationProvider,
@@ -24,25 +24,15 @@ export class FooterComponent implements OnInit{
   }
 
   ngOnInit(){
-    this.subscribeToCategoryFetchEvent();
-    this.getNewsConfiguration();
+    //console.log(this.category);
   }
-
-  public subscribeToCategoryFetchEvent() {
-    this._subscriptions.push(
-      this._configurationProvider.categoriesFetchEvent$.subscribe(
-        categories => {
-          this.categories = categories;
-        })
-    );
-  } 
 
   public changeCategory(event, category) {
     event.preventDefault();
     this.mousepressed = true;
     setTimeout(() => {
       if (this.mousepressed === true) {
-        this.categoryPickerOpened = true;
+        this.replacementListOpened = true;
         this._configurationProvider.saveCategoryForReplacement(category);
       }
     }, 1000);
@@ -50,8 +40,7 @@ export class FooterComponent implements OnInit{
 
   public openPage(pageName) {
     this.mousepressed = false;
-    if (this.categoryPickerOpened === true) {
-      this.categoryPickerOpened = false;
+    if (this.replacementListOpened === true) {
       return;
     } else {
       const params = {
@@ -70,4 +59,10 @@ export class FooterComponent implements OnInit{
     this._configurationProvider.saveClientNewsConfiguration(categories);
   }
 
+  ngOnDestroy() {
+    this._changeDetectRef.detach();
+    this._subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
+
 }
+

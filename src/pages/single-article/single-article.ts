@@ -32,9 +32,8 @@ export class SingleArticlePage {
   }
 
   public goToSource() {
-    this._platform.ready().then(() => {
-      this._inAppBrowser.create(this.article.url, '_self').show();
-    });
+    const browser = this._inAppBrowser.create(this.article.url, '_self');
+    browser.show();
   }
 
   public like(newsId) {

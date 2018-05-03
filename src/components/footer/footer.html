@@ -3,9 +3,11 @@
   <ion-grid>
     <ion-row>
       <ion-col *ngFor="let category of categories">
-        <button ion-button (touchstart)="changeCategory($event,category.name)" (touchend)="changeCategory($event, category.name)">
+        <!--<replacment-list></replacment-list>
+        <button ion-button (touchstart)="changeCategory($event, category)" (touchend)="openPage(category.name)">
           <ion-icon name="{{category.iconName}}"></ion-icon>
-        </button>
+        </button> -->
+        <open-category-component [category]="category"></open-category-component>
       </ion-col>
     </ion-row>
   </ion-grid>
