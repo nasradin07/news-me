@@ -1,5 +1,10 @@
 <!-- Generated template for the ReplacmenListComponent component -->
-<ion-list class="category-replacment-list" *ngIf="replacementListOpened" >
+<ion-list class="category-replacment-list" *ngIf="show" >
+  <ion-item>
+    <button ion-button ion-default (click)="closeReplacementList()" >
+      <ion-icon name="close"></ion-icon>
+    </button>
+  </ion-item>
   <ion-item *ngFor="let category of replacementCategories" >
     <button ion-button ion-default (click)="replaceCategory(category)" >
       <ion-icon name="{{category.iconName}}"></ion-icon>

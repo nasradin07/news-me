@@ -14,7 +14,7 @@ import { ChangePageProvider } from '../../providers/change-page';
 export class OpenCategoryComponent implements OnInit, OnDestroy{
   @Input() category;
   mousepressed;
-  replacementListOpened: boolean = false;
+  showReplacementList: boolean = false;
   private _subscriptions: Subscription[] = [];
   constructor(
     private _configurationProvider: ConfigurationProvider,
@@ -27,20 +27,22 @@ export class OpenCategoryComponent implements OnInit, OnDestroy{
     //console.log(this.category);
   }
 
-  public changeCategory(event, category) {
+  public openReplacementList(event, category) {
+    this.showReplacementList = false;
     event.preventDefault();
     this.mousepressed = true;
     setTimeout(() => {
       if (this.mousepressed === true) {
-        this.replacementListOpened = true;
+        this.showReplacementList = true;
         this._configurationProvider.saveCategoryForReplacement(category);
+        this._changeDetectRef.detectChanges();
       }
     }, 1000);
   }
 
   public openPage(pageName) {
     this.mousepressed = false;
-    if (this.replacementListOpened === true) {
+    if (this.showReplacementList === true) {
       return;
     } else {
       const params = {

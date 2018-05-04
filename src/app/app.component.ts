@@ -42,8 +42,6 @@ export class MyApp {
     });
   }
 
-  
-
   public listenForChangePageEvent() {
     this._changePageProvider.changePageEvent$.subscribe(
      (page) =>  {

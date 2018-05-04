@@ -41,11 +41,12 @@ export class CategoryPage {
   }
 
   public mutateCategoryNameForComparison(categoryName) {
-    return categoryName.replace(' ', '-').toLowerCase();
+    return categoryName.replace(/\s/g, '-').toLowerCase();
   }
 
   public getCategoryNews() {
     const categoryName  = this.mutateCategoryNameForComparison(this.category);
+    console.log(categoryName);
     this.newsInCategory = this._newsProvider.getNewsByCategoryName(categoryName);
   }
   

@@ -8,7 +8,10 @@ import { ConfigurationProvider } from '../../providers/configuration';
   templateUrl: 'replacment-list.html'
 })
 export class ReplacmentListComponent implements OnInit, OnDestroy{
-  @Input() replacementListOpened;
+  public show;
+  @Input() set showReplacementList( show: boolean) {
+    this.show = show;
+  }
   @Input() category;
   _subscriptions: Subscription[] = [];
   replacementCategories;
@@ -20,16 +23,17 @@ export class ReplacmentListComponent implements OnInit, OnDestroy{
   ngOnInit() {
     this.subscribeForReplacementCategoriesFetchEvent();
     this.getReplacementCategories();
+    this._changeDetectRef.detectChanges()
   }
 
   public subscribeForReplacementCategoriesFetchEvent() {
-  this._subscriptions.push(
-    this._configurationProvider.categoriesForReplacementFetchEvent$.subscribe(
-      replacementCategories => {
-        this.replacementCategories = replacementCategories;
-        this._changeDetectRef.detectChanges();
-      })
-    );
+    this._subscriptions.push(
+      this._configurationProvider.categoriesForReplacementFetchEvent$.subscribe(
+        replacementCategories => {
+          setTimeout( () => this.replacementCategories = replacementCategories, 0);
+          this._changeDetectRef.detectChanges();
+        })
+      );
   }
 
   public getReplacementCategories() {
@@ -44,7 +48,7 @@ export class ReplacmentListComponent implements OnInit, OnDestroy{
   }
 
   public closeReplacementList() {
-    this.replacementListOpened = false;
+    this.show = false;
   }
 
   ngOnDestroy() {

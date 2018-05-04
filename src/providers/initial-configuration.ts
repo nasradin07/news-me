@@ -49,6 +49,7 @@ export class InitialConfigurationProvider {
         }
       });
     });
+    console.log(this.allNews);
   }
 
   public handleResponse(initialConfiguration) {

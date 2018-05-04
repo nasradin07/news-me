@@ -14,7 +14,7 @@ export class ConfigurationProvider {
     { name: 'Sport News', iconName: 'football'},
     { name: 'Entertainment News', iconName: 'easel'},
     { name: 'Cryptocurrency News', iconName: 'cash'},
-    { name: 'Lyfestyle News', iconName: 'heart' },
+    { name: 'Life Health Fitnes News', iconName: 'heart' },
     { name: 'Technology News', iconName: 'phone-portrait' }
   ];
   private _categoriesFetchEvent = new Subject();
@@ -47,6 +47,8 @@ export class ConfigurationProvider {
   public replaceCategory(newCategory, oldCategory) {
     let indexOfOldCategory = this.categories.findIndex(category => category.name === oldCategory.name);
     this.categories.splice(indexOfOldCategory, 1, newCategory);
+    this.getReplacementsCategory();
+    this.sendConfiguration(this.categories);
     this.saveClientNewsConfiguration(this.categories);
   }
 
@@ -89,7 +91,7 @@ export class ConfigurationProvider {
   public saveClientNewsConfiguration(newsConfiguration) {
     let key = 'clientNewsCategories';
     this.categories = newsConfiguration;
-    return this._storageProvider.saveData(key,newsConfiguration);
+    this._storageProvider.saveData(key,newsConfiguration);
   }
 
 }
