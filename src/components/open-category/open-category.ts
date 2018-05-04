@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectorRef, Input, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { CategoryPage } from '../../pages/category/category';
@@ -11,7 +11,7 @@ import { ChangePageProvider } from '../../providers/change-page';
   templateUrl: './open-category.html'
 })
 
-export class OpenCategoryComponent implements OnInit, OnDestroy{
+export class OpenCategoryComponent implements OnDestroy{
   @Input() category;
   mousepressed;
   showReplacementList: boolean = false;
@@ -21,10 +21,6 @@ export class OpenCategoryComponent implements OnInit, OnDestroy{
     private _changeDetectRef: ChangeDetectorRef,
     private _changePageProvider: ChangePageProvider
   ) {
-  }
-
-  ngOnInit(){
-    //console.log(this.category);
   }
 
   public openReplacementList(event, category) {

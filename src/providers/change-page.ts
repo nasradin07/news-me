@@ -6,6 +6,9 @@ export class ChangePageProvider {
   private _changePage = new Subject();
   public changePageEvent$ = this._changePage.asObservable();
 
+  private _toggleReplacementList = new Subject();
+  public toggleReplacementList$ = this._toggleReplacementList.asObservable();
+
   constructor() {
   }
 
@@ -16,5 +19,10 @@ export class ChangePageProvider {
       this._changePage.next({ page: page, params: params})
     }
   }
+
+  public closeReplacementList() {
+    console.log('called close');
+    this._toggleReplacementList.next(false);
+  } 
 
 }

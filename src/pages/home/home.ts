@@ -6,6 +6,7 @@ import { NewsProvider } from '../../providers/news';
 import { CacheProvider } from '../../providers/cache';
 import { RefreshProvider } from '../../providers/refresh';
 import { ConfigurationProvider } from '../../providers/configuration';
+import { ChangePageProvider } from '../../providers/change-page';
 
 import { LoginPage } from '../login/login';
 
@@ -41,7 +42,8 @@ export class HomePage {
     private _changeDetectRef: ChangeDetectorRef,
     private _cacheProvider: CacheProvider,
     private _refreshProvider: RefreshProvider,
-    private _configurationProvider: ConfigurationProvider
+    private _configurationProvider: ConfigurationProvider,
+    private _changePageProvider: ChangePageProvider
   ) { }
 
   ionViewWillEnter() {
@@ -104,6 +106,10 @@ export class HomePage {
 
   public sendSourcesToLeftMenu() {
     this._newsProvider.sendSourcesToLeftMenu();
+  }
+
+  public closeReplacementList() {
+    this._changePageProvider.closeReplacementList();
   }
 
   ionViewWillLeave() {

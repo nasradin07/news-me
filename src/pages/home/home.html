@@ -1,6 +1,6 @@
 <header></header>
 
-<ion-content padding>
+<ion-content padding (click)="closeReplacementList()" >
   <ion-refresher (ionRefresh)="refreshApp($event)" >
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>

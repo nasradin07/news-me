@@ -2,6 +2,7 @@ import { Component, Input, OnInit, ChangeDetectorRef, OnDestroy } from '@angular
 import { Subscription } from 'rxjs/Subscription';
 
 import { ConfigurationProvider } from '../../providers/configuration';
+import { ChangePageProvider } from '../../providers/change-page';
 
 @Component({
   selector: 'replacment-list',
@@ -17,13 +18,26 @@ export class ReplacmentListComponent implements OnInit, OnDestroy{
   replacementCategories;
   constructor(
     private _configurationProvider: ConfigurationProvider,
+    private _changePageProvider: ChangePageProvider,
     private _changeDetectRef: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
     this.subscribeForReplacementCategoriesFetchEvent();
+    this.subscribeToOpenReplacementListEvent();
     this.getReplacementCategories();
     this._changeDetectRef.detectChanges()
+  }
+
+  public subscribeToOpenReplacementListEvent() {
+    this._subscriptions.push(
+      this._changePageProvider.toggleReplacementList$.subscribe(
+        notification => {
+          this.show = notification;
+          console.log('Got closed');
+        }
+      )
+    );
   }
 
   public subscribeForReplacementCategoriesFetchEvent() {

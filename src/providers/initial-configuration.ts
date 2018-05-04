@@ -34,7 +34,6 @@ export class InitialConfigurationProvider {
   }
 
   filterUserSeenNews(allNews, viewedNewsId) {
-    console.log('Cao')
     allNews.forEach(newsByCategory => {
       let categoryName = newsByCategory.categoryName;
       this.allNews[categoryName] = [];
@@ -49,7 +48,6 @@ export class InitialConfigurationProvider {
         }
       });
     });
-    console.log(this.allNews);
   }
 
   public handleResponse(initialConfiguration) {

@@ -4,6 +4,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { NewsProvider } from '../../providers/news';
 import { CacheProvider } from '../../providers/cache';
 import { ConfigurationProvider } from '../../providers/configuration';
+import { ChangePageProvider } from '../../providers/change-page';
 
 @Component({
   selector: 'page-category',
@@ -23,6 +24,7 @@ export class CategoryPage {
     private _newsProvider: NewsProvider, 
     private _cacheProvider: CacheProvider,
     private _configurationProvider: ConfigurationProvider,
+    private _changePageProvider: ChangePageProvider,
     private _changeDetectRef: ChangeDetectorRef
   ) {
     this.category = this.navParams.get('name');
@@ -78,6 +80,10 @@ export class CategoryPage {
     infinitiveScroll.complete();
     const categoryName = this.mutateCategoryNameForComparison(this.category);
     this._cacheProvider.removeNewsFromCache(news,categoryName);
+  }
+
+  public closeReplacementList() {
+    this._changePageProvider.closeReplacementList();
   }
 
 }

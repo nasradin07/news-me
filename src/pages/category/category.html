@@ -13,9 +13,10 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding (click)="closeReplacementList()" >
   <news-component *ngFor="let news of newsForDisplay" [news]="news" ></news-component>
   <ion-infinite-scroll (ionInfinite)="loadMoreNews($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>
+<footer></footer>

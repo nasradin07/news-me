@@ -4,6 +4,7 @@ import { InAppBrowser } from "@ionic-native/in-app-browser";
 
 import { LeftMenuProvider } from '../../providers/left-menu';
 import { LikeProvider } from '../../providers/like';
+import { ChangePageProvider } from '../../providers/change-page';
 
 @Component({
   selector: 'page-single-article',
@@ -15,6 +16,7 @@ export class SingleArticlePage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private _leftMenuProvider: LeftMenuProvider,
     private _likeProvider: LikeProvider,
+    private _changePageProvider: ChangePageProvider,
     private _inAppBrowser: InAppBrowser
   ) {
     this.article = this.navParams.get('article');
@@ -41,6 +43,10 @@ export class SingleArticlePage {
 
   public dislike() {
     console.log('dislike');
+  }
+
+  public closeReplacementList() {
+    this._changePageProvider.closeReplacementList();
   }
 
 }

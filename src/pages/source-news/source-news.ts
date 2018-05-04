@@ -4,6 +4,8 @@ import { NavParams } from 'ionic-angular';
 import { NewsProvider } from '../../providers/news';
 import { CacheProvider } from '../../providers/cache';
 import { ConfigurationProvider } from '../../providers/configuration';
+import { ChangePageProvider } from '../../providers/change-page'; 
+
 @Component({
   selector: 'page-source-news',
   templateUrl: 'source-news.html',
@@ -20,6 +22,7 @@ export class SourceNewsPage {
     private _newsProvider: NewsProvider,
     private _cacheProvider: CacheProvider,
     private _configurationProvider: ConfigurationProvider,
+    private _changePageProvider: ChangePageProvider,
     private _changeDetectRef: ChangeDetectorRef
   ) {
     this.source = this._navParams.get('source');
@@ -59,6 +62,10 @@ export class SourceNewsPage {
     news.forEach( article => this.newsForDisplay.push(article));
     infinitiveScroll.complete();
     this._cacheProvider.removeNewsFromCache(news);
+  }
+
+  public closeReplacementList() {
+    this._changePageProvider.closeReplacementList();
   }
 
 }
