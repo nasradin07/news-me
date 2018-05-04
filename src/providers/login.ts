@@ -8,7 +8,6 @@ import { StorageProvider } from './storage';
 @Injectable()
 export class LoginProvider {
   private _url: string = 'http://api-news-me.ml/public/login';
-  private _user;
   private _messageSubject = new Subject();
   public sendMessage$ = this._messageSubject.asObservable();
   constructor(

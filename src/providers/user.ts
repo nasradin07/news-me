@@ -1,15 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { StorageProvider } from './storage';
 
 @Injectable()
 export class UserProvider {
     private _user;
     private _actionUrl = 'http://api-news-me.ml/public/news-action';
     constructor(
-        private _http: HttpClient,
-        private _storageProvider: StorageProvider
+        private _http: HttpClient
     ) {}
 
 

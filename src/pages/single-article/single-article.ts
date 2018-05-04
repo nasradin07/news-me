@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams,  Platform } from 'ionic-angular';
-import { InAppBrowser, InAppBrowserOptions } from "@ionic-native/in-app-browser";
+import { NavController, NavParams } from 'ionic-angular';
+import { InAppBrowser } from "@ionic-native/in-app-browser";
 
 import { LeftMenuProvider } from '../../providers/left-menu';
 import { LikeProvider } from '../../providers/like';
@@ -15,8 +15,7 @@ export class SingleArticlePage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private _leftMenuProvider: LeftMenuProvider,
     private _likeProvider: LikeProvider,
-    private _inAppBrowser: InAppBrowser,
-    private _platform: Platform
+    private _inAppBrowser: InAppBrowser
   ) {
     this.article = this.navParams.get('article');
   }

@@ -2,8 +2,6 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 import { NewsProvider } from '../../providers/news';
-import { NewsFilterProvider } from '../../providers/news-filter';
-import { LeftMenuProvider } from '../../providers/left-menu';
 import { CacheProvider } from '../../providers/cache';
 import { ConfigurationProvider } from '../../providers/configuration';
 
@@ -23,8 +21,6 @@ export class CategoryPage {
     public navCtrl: NavController, 
     public navParams: NavParams,
     private _newsProvider: NewsProvider, 
-    private _newsFilterProvider: NewsFilterProvider,
-    private _leftMenuProvider: LeftMenuProvider, 
     private _cacheProvider: CacheProvider,
     private _configurationProvider: ConfigurationProvider,
     private _changeDetectRef: ChangeDetectorRef

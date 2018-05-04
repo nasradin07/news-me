@@ -27,7 +27,6 @@ export class InitialConfigurationProvider {
 
   getInitialConfiguration() {
     let request = this.http.get(this._url);
-    let cacheKey = this._url;
     this._cacheProvider.cacheRequest(this._url, request).subscribe(
       initialConfiguration => this.handleResponse(initialConfiguration),
       err => this.handleError(err)

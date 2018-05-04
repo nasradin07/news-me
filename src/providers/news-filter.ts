@@ -10,7 +10,6 @@ export class NewsFilterProvider {
 
   public filterBySource(allNews, sources) {
     allNews.forEach((news) => {
-      const newsId = news._id;
       const newsSource = news.source;
       if (sources[newsSource] === undefined) {
         sources[newsSource] = [];

@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { NavController, ModalController, AlertController } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
 import { Subscription } from 'rxjs/Subscription';
 
 import { NewsProvider } from '../../providers/news';
@@ -9,7 +9,6 @@ import { ChangePageProvider } from '../../providers/change-page';
 import { ConfigurationProvider } from '../../providers/configuration';
 
 import { LoginPage } from '../login/login';
-import { CategoryPage } from '../category/category';
 
 
 @Component({
@@ -43,8 +42,7 @@ export class HomePage {
     private _changeDetectRef: ChangeDetectorRef,
     private _cacheProvider: CacheProvider,
     private _refreshProvider: RefreshProvider,
-    private _configurationProvider: ConfigurationProvider,
-    private _alertCtrl: AlertController
+    private _configurationProvider: ConfigurationProvider
   ) { }
 
   ionViewWillEnter() {

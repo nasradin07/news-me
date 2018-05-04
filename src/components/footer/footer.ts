@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { CategoryPage } from '../../pages/category/category';
@@ -18,7 +18,6 @@ export class FooterComponent implements OnInit{
   private _subscriptions: Subscription[] = [];
   constructor(
     private _configurationProvider: ConfigurationProvider,
-    private _changeDetectRef: ChangeDetectorRef,
     private _changePageProvider: ChangePageProvider
   ) {
   }
