@@ -5,9 +5,12 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
   <br><br><br>
-  <news-component *ngFor="let n of newsForDisplay" [news]="n"></news-component>
+  <news-component *ngFor="let n of newsForDisplay; let i = index" 
+  [news]="n" [i]="i" [category]="category"
+  ></news-component>
   <ion-infinite-scroll (ionInfinite)="loadMoreNews($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 </ion-content>
+
 <footer></footer>

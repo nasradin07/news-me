@@ -51,7 +51,12 @@ export class LoginProvider {
 
   public loginUserAutomaticly() {
     this._storageProvider.getUserEmailAndPassword()
-      .then(data => this.login(data.email, data.password))
+      .then(data => {
+        if (data === null) {
+          return;
+        }
+        this.login(data.email, data.password);
+      })
       .catch(err => console.log(err));
   }
 

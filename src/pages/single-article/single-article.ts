@@ -13,6 +13,8 @@ import { ChangePageProvider } from '../../providers/change-page';
 export class SingleArticlePage {
   article: any;
   date: any;
+  indexInCategoryArray;
+  categoryName;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private _leftMenuProvider: LeftMenuProvider,
     private _likeProvider: LikeProvider,
@@ -20,12 +22,21 @@ export class SingleArticlePage {
     private _inAppBrowser: InAppBrowser
   ) {
     this.article = this.navParams.get('article');
+    this.indexInCategoryArray = this.navParams.get('index');
+    this.categoryName = this.navParams.get('parentCategory')
   }
 
   ionViewDidLoad() {
     this.date = (new Date(this.article.publishedAt)).toDateString();
     const source = this.article.source;
     this.notifyLeftMenuToShowNewsForSource(source);
+  }
+
+  public loadNextArticle(event) {
+    event.preventDefault();
+    /*const params = {
+
+    }; */
   }
 
   public notifyLeftMenuToShowNewsForSource(source) {

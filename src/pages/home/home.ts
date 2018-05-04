@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController, NavParams} from 'ionic-angular';
 import { Subscription } from 'rxjs/Subscription';
 
 import { NewsProvider } from '../../providers/news';
@@ -27,28 +27,28 @@ export class HomePage {
     { name: 'Technology News', iconName: 'phone-portrait' }
   ];
   categories: Array<{name: string, iconName: string}>;
-  mousepressedd: boolean = false;
   newsInCategory: any;
   newsForDisplay: any;
   currIndex: number = 0;
   _subscriptions: Subscription[] = [];
   loadMoreArticlesNum: number;
-  mousepressed;
-  categoryPickerOpened: boolean;
+  category;
   constructor(
     public navCtrl: NavController,
-    public modalCtrl: ModalController,
+    public navParams: NavParams,
     private _newsProvider: NewsProvider,
     private _changeDetectRef: ChangeDetectorRef,
     private _cacheProvider: CacheProvider,
     private _refreshProvider: RefreshProvider,
     private _configurationProvider: ConfigurationProvider,
     private _changePageProvider: ChangePageProvider
-  ) { }
+  ) { 
+    this.category = this.navParams.get('name');
+  }
 
   ionViewWillEnter() {
     this.getNumberOfArticlesToDisplay();
-    this.getTopHeadlines();
+    this.getCategoryNews();
     this.sortAllNewsBySource();
     this.sendSourcesToLeftMenu();
     this._changeDetectRef.detectChanges();
@@ -86,8 +86,8 @@ export class HomePage {
     this.navCtrl.push(LoginPage);
   }
 
-  public getTopHeadlines() {
-    this.newsInCategory = this._newsProvider.getTopHeadlines();
+  public getCategoryNews() {
+    this.newsInCategory = this._newsProvider.getNewsByCategoryName(this.category);
     this.setNewsForDisplay(this.newsInCategory.slice(0,5));
   }
 

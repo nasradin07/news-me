@@ -5,13 +5,14 @@ import { UserProvider } from '../../providers/user';
 import { StorageProvider } from '../../providers/storage';
 import { SingleArticlePage } from '../../pages/single-article/single-article';
 
-
 @Component({
   selector: 'news-component',
   templateUrl: 'news.html'
 })
 export class NewsComponent implements OnInit {
   @Input() news;
+  @Input('i') index;
+  @Input('category') parentCategory;
   imageUrl = '../../assets/imgs/default.png';
   constructor(
     private _changePageProvider: ChangePageProvider,
@@ -22,7 +23,7 @@ export class NewsComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.checkIfDeviceIsOnline()) {
+    if (this.checkIfDeviceIsOnline() === true) {
       this.imageUrl = this.news.urlToImage;
     }
   }
@@ -33,7 +34,9 @@ export class NewsComponent implements OnInit {
 
   public showArticle() {
     const params = {
-      article: this.news
+      article: this.news,
+      index: this.index,
+      parentCategory: this.parentCategory
     };
     this.addArticleToVisitedNews(this.news._id);
     this._changePageProvider.changePage(SingleArticlePage, params);

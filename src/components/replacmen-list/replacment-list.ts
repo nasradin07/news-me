@@ -34,7 +34,6 @@ export class ReplacmentListComponent implements OnInit, OnDestroy{
       this._changePageProvider.toggleReplacementList$.subscribe(
         notification => {
           this.show = notification;
-          console.log('Got closed');
         }
       )
     );

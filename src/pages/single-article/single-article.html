@@ -16,7 +16,7 @@
 </ion-header>
 
 
-<ion-content padding (click)="closeReplacementList()" >
+<ion-content padding (click)="closeReplacementList()" (swipe)="loadNextArticle($event)">
     <ion-card>
 
         <ion-item>
