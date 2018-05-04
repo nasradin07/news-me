@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs/Subscription';
 import { NewsProvider } from '../../providers/news';
 import { CacheProvider } from '../../providers/cache';
 import { RefreshProvider } from '../../providers/refresh';
-import { ChangePageProvider } from '../../providers/change-page';
 import { ConfigurationProvider } from '../../providers/configuration';
 
 import { LoginPage } from '../login/login';
