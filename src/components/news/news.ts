@@ -13,6 +13,7 @@ export class NewsComponent implements OnInit {
   @Input() news;
   @Input('i') index;
   @Input('category') parentCategory;
+  @Input() source;
   imageUrl = '../../assets/imgs/default.png';
   constructor(
     private _changePageProvider: ChangePageProvider,
@@ -36,7 +37,8 @@ export class NewsComponent implements OnInit {
     const params = {
       article: this.news,
       index: this.index,
-      parentCategory: this.parentCategory
+      parentCategory: this.parentCategory,
+      sourceName: this.source
     };
     this.addArticleToVisitedNews(this.news._id);
     this._changePageProvider.changePage(SingleArticlePage, params);

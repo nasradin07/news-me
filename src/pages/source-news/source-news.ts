@@ -26,6 +26,7 @@ export class SourceNewsPage {
     private _changeDetectRef: ChangeDetectorRef
   ) {
     this.source = this._navParams.get('source');
+    console.log(this.source);
   }
 
   ionViewDidLoad() {

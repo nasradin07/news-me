@@ -16,37 +16,37 @@
 </ion-header>
 
 
-<ion-content padding (click)="closeReplacementList()" (swipe)="loadNextArticle($event)">
-    <ion-card>
-
-        <ion-item>
-          <h2>{{article.title}}</h2>
-          <p>{{article.author}}</p>
-          <p>{{date}}</p>
-        </ion-item>
+<ion-content padding (click)="closeReplacementList()" >
+  <div class="wrapper" (swipe)="loadNewArticle($event)">
+    <ion-card >
+      <ion-item>
+        <h2>{{article.title}}</h2>
+        <p>{{article.author}}</p>
+        <p>{{date}}</p>
+      </ion-item>
       
-        <img src="{{article.urlToImage}}">
-      
-        <ion-card-content>
-          <p>{{article.description}}</p>
-        </ion-card-content>
-      
-        <ion-row>
-          <ion-col>
-            <button ion-button (click)="goToSource()">
-              Go To Source
-            </button>
-          </ion-col>
-          <ion-col>
-            <button ion-button (click)="like(article._id)" >
-              <ion-icon name="thumbs-up"></ion-icon>
-            </button>
-            <button ion-button (click)="dislike(article._id)">
-              <ion-icon name="thumbs-down"></ion-icon>
-            </button>
-          </ion-col>
-        </ion-row>
-      
-      </ion-card>
+      <img src="{{article.urlToImage}}">
+    
+      <ion-card-content>
+        <p>{{article.description}}</p>
+      </ion-card-content>
+    
+      <ion-row>
+        <ion-col>
+          <button ion-button (click)="goToSource()">
+            Go To Source
+          </button>
+        </ion-col>
+        <ion-col>
+          <button ion-button (click)="like(article._id)" >
+            <ion-icon name="thumbs-up"></ion-icon>
+          </button>
+          <button ion-button (click)="dislike(article._id)">
+            <ion-icon name="thumbs-down"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </div>
 </ion-content>
 <footer></footer>

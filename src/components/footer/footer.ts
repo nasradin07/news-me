@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { ConfigurationProvider } from '../../providers/configuration';
@@ -8,7 +8,7 @@ import { ConfigurationProvider } from '../../providers/configuration';
   templateUrl: 'footer.html'
 })
 
-export class FooterComponent implements OnInit{
+export class FooterComponent implements OnInit, OnDestroy{
   categories;
   private _subscriptions: Subscription[] = [];
   constructor(
@@ -31,6 +31,10 @@ export class FooterComponent implements OnInit{
 
   public getNewsConfiguration() {
     this._configurationProvider.getClientNewsConfiguration();
+  }
+
+  ngOnDestroy() {
+    this._subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
 }

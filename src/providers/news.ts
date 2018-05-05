@@ -7,7 +7,6 @@ import { LeftMenuProvider } from './left-menu';
 
 @Injectable()
 export class NewsProvider {
-  public newsInCurrentCategory: any;
   public newsBySource: any;
 
   private _sendSourcesToLeftMenu = new Subject();
@@ -26,6 +25,26 @@ export class NewsProvider {
 
   public getNewsByCategoryName(categoryName) {
     return this._initialConfigurationProvider.allNews[categoryName];
+  }
+
+  public getArticleByCategoryNameAndIndex(categoryName, index) {
+    const allNews = this._initialConfigurationProvider.allNews[categoryName];
+    if (index < allNews.length && index > -1) {
+      return allNews[index];
+    } else {
+      return false;
+    }
+  }
+
+  public getArticleBySourceNameAndIndex(sourceName, index) {
+    console.log(this.newsBySource);
+    let newsInSource = this.newsBySource[sourceName];
+    if (index < newsInSource.length && index > -1) {
+      return newsInSource[index];
+    } else {
+      return false;
+    }
+
   }
 
   public sortNewsBySource(news) {

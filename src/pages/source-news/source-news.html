@@ -14,7 +14,9 @@
 
 
 <ion-content padding (click)="closeReplacementList()" >
-  <news-component *ngFor="let n of newsForDisplay" [news]="n"></news-component>
+  <news-component *ngFor="let n of newsForDisplay; let i = index" 
+  [news]="n" [i]="i" [source]="source"
+  ></news-component>
   <ion-infinite-scroll (ionInfinite)="loadMoreNews($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
