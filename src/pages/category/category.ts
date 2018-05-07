@@ -42,13 +42,12 @@ export class CategoryPage {
     this.loadMoreArticlesNum = this._configurationProvider.getNumberOfNewsArticlesForLoad();
   }
 
-  public mutateCategoryNameForComparison(categoryName) {
+  public mutateCategoryName(categoryName) {
     return categoryName.replace(/\s/g, '-').toLowerCase();
   }
 
   public getCategoryNews() {
-    const categoryName  = this.mutateCategoryNameForComparison(this.category);
-    console.log(categoryName);
+    const categoryName  = this.mutateCategoryName(this.category);
     this.newsInCategory = this._newsProvider.getNewsByCategoryName(categoryName);
   }
   
@@ -78,7 +77,7 @@ export class CategoryPage {
     }
     news.forEach( article => this.newsForDisplay.push(article));
     infinitiveScroll.complete();
-    const categoryName = this.mutateCategoryNameForComparison(this.category);
+    const categoryName = this.mutateCategoryName(this.category);
     this._cacheProvider.removeNewsFromCache(news,categoryName);
   }
 

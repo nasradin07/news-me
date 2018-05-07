@@ -21,7 +21,6 @@ export class ChangePageProvider {
   }
 
   public closeReplacementList() {
-    console.log('called close');
     this._toggleReplacementList.next(false);
   } 
 

@@ -33,7 +33,6 @@ export class ConfigurationPage {
 
   public getClientConfiguration() {
     this.configuration = this._configurationProvider.getClientConfiguration();
-    console.log(this.configuration);
   }
 
   public sendUserConfiguration() {

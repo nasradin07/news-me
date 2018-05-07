@@ -37,7 +37,6 @@ export class NewsProvider {
   }
 
   public getArticleBySourceNameAndIndex(sourceName, index) {
-    console.log(this.newsBySource);
     let newsInSource = this.newsBySource[sourceName];
     if (index < newsInSource.length && index > -1) {
       return newsInSource[index];

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, MenuController } from 'ionic-angular';
 import { InAppBrowser } from "@ionic-native/in-app-browser";
 
 import { LeftMenuProvider } from '../../providers/left-menu';
@@ -22,13 +22,13 @@ export class SingleArticlePage {
     private _likeProvider: LikeProvider,
     private _newsProvider: NewsProvider,
     private _changePageProvider: ChangePageProvider,
+    private _menuCtrl: MenuController,
     private _inAppBrowser: InAppBrowser
   ) {
     this.article = this.navParams.get('article');
     this.indexInCategoryArray = this.navParams.get('index');
     this.categoryName = this.navParams.get('parentCategory');
     this.sourceName = this.navParams.get('sourceName');
-    console.log('source :', this.sourceName);
   }
 
   ionViewDidLoad() {
@@ -41,14 +41,17 @@ export class SingleArticlePage {
     event.preventDefault();
     let indexForNextArticle = this.getIndexForNewArticle(event);
     const article = this.getArticle(indexForNextArticle);
-    const params = {
-      article: article,
-      index: indexForNextArticle,
-      parentCategory: this.categoryName,
-      sourceName: this.sourceName
-    };
-    if (article === false) return;
-    this.navCtrl.push(SingleArticlePage, params);
+    if (article === false) {
+      this.openMenu(event);
+    } else {
+       const params = {
+        article: article,
+        index: indexForNextArticle,
+        parentCategory: this.categoryName,
+        sourceName: this.sourceName
+      };
+      this.navCtrl.push(SingleArticlePage, params);
+    }
   }
 
   public getIndexForNewArticle(event) {
@@ -66,6 +69,15 @@ export class SingleArticlePage {
       return this._newsProvider.getArticleByCategoryNameAndIndex(mutateName, indexForNextArticle);;
     } else if (this.sourceName !== undefined) {
       return this._newsProvider.getArticleBySourceNameAndIndex(this.sourceName, indexForNextArticle);
+    }
+  }
+
+  public openMenu(event) {
+    console.log(event.deltaX);
+    if (event.deltaX > 0) {
+      this._menuCtrl.open('left');
+    } else if(event.deltaX < 0) {
+      this._menuCtrl.open('right');
     }
   }
 

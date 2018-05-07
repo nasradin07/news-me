@@ -29,7 +29,6 @@ export class ConfigurationProvider {
     private _initialConfigurationProvider: InitialConfigurationProvider,
     private _storageProvider: StorageProvider
   ) {
-    console.log('Hello ConfigurationProvider Provider');
   }
 
   public getConfigurationOptions() {
