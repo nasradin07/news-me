@@ -56,6 +56,9 @@ export class SingleArticlePage {
 
   public getIndexForNewArticle(event) {
     if (Math.abs(event.overallVelocityX) < 0.3 ) return;
+    if (this.indexInCategoryArray === undefined) {
+      return -1;
+    }
     if (event.deltaX < -100) {
       return this.indexInCategoryArray + 1;
     } else if (event.deltaX > 100) {
@@ -69,11 +72,12 @@ export class SingleArticlePage {
       return this._newsProvider.getArticleByCategoryNameAndIndex(mutateName, indexForNextArticle);;
     } else if (this.sourceName !== undefined) {
       return this._newsProvider.getArticleBySourceNameAndIndex(this.sourceName, indexForNextArticle);
+    } else {
+      return false;
     }
   }
 
   public openMenu(event) {
-    console.log(event.deltaX);
     if (event.deltaX > 0) {
       this._menuCtrl.open('left');
     } else if(event.deltaX < 0) {
