@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
-import { NavController, NavParams} from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { Subscription } from 'rxjs/Subscription';
 
 import { NewsProvider } from '../../providers/news';
@@ -16,16 +16,7 @@ import { LoginPage } from '../login/login';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  allCategories: Array<{name: string, iconName: string}> = [
-    { name: 'General News', iconName: 'albums'},
-    { name: 'Business News', iconName: 'briefcase'},
-    { name: 'Programming News', iconName: 'laptop' },
-    { name: 'Sport News', iconName: 'football'},
-    { name: 'Entertainment News', iconName: 'easel'},
-    { name: 'Cryptocurrency News', iconName: 'cash'},
-    { name: 'Lyfestyle News', iconName: 'heart' },
-    { name: 'Technology News', iconName: 'phone-portrait' }
-  ];
+  name: string = 'Top Headlines';
   categories: Array<{name: string, iconName: string}>;
   newsInCategory: any;
   newsForDisplay: any;
@@ -88,7 +79,7 @@ export class HomePage {
 
   public getCategoryNews() {
     this.newsInCategory = this._newsProvider.getNewsByCategoryName(this.category);
-    this.setNewsForDisplay(this.newsInCategory.slice(0,5));
+    this.setNewsForDisplay(this.newsInCategory.slice(0,this.loadMoreArticlesNum));
   }
 
   public setNewsForDisplay(news) {
@@ -110,6 +101,10 @@ export class HomePage {
 
   public closeReplacementList() {
     this._changePageProvider.closeReplacementList();
+  }
+
+  public openMenu(event) {
+    this._changePageProvider.openMenu(event);
   }
 
   ionViewWillLeave() {

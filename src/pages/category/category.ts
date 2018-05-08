@@ -85,4 +85,8 @@ export class CategoryPage {
     this._changePageProvider.closeReplacementList();
   }
 
+  public openMenu(event) {
+    this._changePageProvider.openMenu(event);
+  }
+
 }

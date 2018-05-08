@@ -4,21 +4,19 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>{{source}}</ion-title>
-  </ion-navbar>
-
-</ion-header>
+<header [name]="source" ></header>
 
 
 <ion-content padding (click)="closeReplacementList()" >
-  <news-component *ngFor="let n of newsForDisplay; let i = index" 
-  [news]="n" [i]="i" [source]="source"
-  ></news-component>
-  <ion-infinite-scroll (ionInfinite)="loadMoreNews($event)">
-    <ion-infinite-scroll-content></ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+  <br>
+  <div class="wrapper" (swipe)="openMenu($event)" >  
+    <news-component *ngFor="let n of newsForDisplay; let i = index" 
+    [news]="n" [i]="i" [source]="source"
+    ></news-component>
+    <ion-infinite-scroll (ionInfinite)="loadMoreNews($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
 </ion-content>
+
 <footer></footer>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, MenuController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { InAppBrowser } from "@ionic-native/in-app-browser";
 
 import { LeftMenuProvider } from '../../providers/left-menu';
@@ -22,7 +22,6 @@ export class SingleArticlePage {
     private _likeProvider: LikeProvider,
     private _newsProvider: NewsProvider,
     private _changePageProvider: ChangePageProvider,
-    private _menuCtrl: MenuController,
     private _inAppBrowser: InAppBrowser
   ) {
     this.article = this.navParams.get('article');
@@ -50,7 +49,8 @@ export class SingleArticlePage {
         parentCategory: this.categoryName,
         sourceName: this.sourceName
       };
-      this.navCtrl.push(SingleArticlePage, params);
+      this.navCtrl.push(SingleArticlePage, params, 
+        {animate: true, animation: 'md-transition', direction: 'forward'});
     }
   }
 
@@ -78,11 +78,7 @@ export class SingleArticlePage {
   }
 
   public openMenu(event) {
-    if (event.deltaX > 0) {
-      this._menuCtrl.open('left');
-    } else if(event.deltaX < 0) {
-      this._menuCtrl.open('right');
-    }
+    this._changePageProvider.openMenu(event);
   }
 
   public mutateName(categoryName) {

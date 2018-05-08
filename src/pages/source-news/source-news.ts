@@ -26,7 +26,6 @@ export class SourceNewsPage {
     private _changeDetectRef: ChangeDetectorRef
   ) {
     this.source = this._navParams.get('source');
-    console.log(this.source);
   }
 
   ionViewDidLoad() {
@@ -67,6 +66,10 @@ export class SourceNewsPage {
 
   public closeReplacementList() {
     this._changePageProvider.closeReplacementList();
+  }
+
+  public openMenu(event) {
+    this._changePageProvider.openMenu(event);
   }
 
 }
