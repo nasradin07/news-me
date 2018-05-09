@@ -4,7 +4,8 @@ import { NavParams } from 'ionic-angular';
 import { NewsProvider } from '../../providers/news';
 import { CacheProvider } from '../../providers/cache';
 import { ConfigurationProvider } from '../../providers/configuration';
-import { ChangePageProvider } from '../../providers/change-page'; 
+import { ChangePageProvider } from '../../providers/change-page';
+import { RefreshProvider } from '../../providers/refresh';
 
 @Component({
   selector: 'page-source-news',
@@ -23,6 +24,7 @@ export class SourceNewsPage {
     private _cacheProvider: CacheProvider,
     private _configurationProvider: ConfigurationProvider,
     private _changePageProvider: ChangePageProvider,
+    private _refreshProvider: RefreshProvider,
     private _changeDetectRef: ChangeDetectorRef
   ) {
     this.source = this._navParams.get('source');
@@ -70,6 +72,10 @@ export class SourceNewsPage {
 
   public openMenu(event) {
     this._changePageProvider.openMenu(event);
+  }
+
+  public refreshApp(event) {
+    this._refreshProvider.refreshApp();
   }
 
 }

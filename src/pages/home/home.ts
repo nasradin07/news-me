@@ -4,9 +4,10 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { NewsProvider } from '../../providers/news';
 import { CacheProvider } from '../../providers/cache';
-import { RefreshProvider } from '../../providers/refresh';
 import { ConfigurationProvider } from '../../providers/configuration';
 import { ChangePageProvider } from '../../providers/change-page';
+import { RefreshProvider } from '../../providers/refresh';
+
 
 import { LoginPage } from '../login/login';
 
@@ -30,8 +31,8 @@ export class HomePage {
     private _newsProvider: NewsProvider,
     private _changeDetectRef: ChangeDetectorRef,
     private _cacheProvider: CacheProvider,
-    private _refreshProvider: RefreshProvider,
     private _configurationProvider: ConfigurationProvider,
+    private _refreshProvider: RefreshProvider,
     private _changePageProvider: ChangePageProvider
   ) { 
     this.category = this.navParams.get('name');
@@ -51,10 +52,6 @@ export class HomePage {
 
   public getNumberOfArticlesToDisplay() {
     this.loadMoreArticlesNum = this._configurationProvider.getNumberOfNewsArticlesForLoad();
-  }
-
-  public refreshApp(event) {
-    this._refreshProvider.refreshApp()
   }
 
   public loadMoreNews(infinitiveScroll) {
@@ -105,6 +102,10 @@ export class HomePage {
 
   public openMenu(event) {
     this._changePageProvider.openMenu(event);
+  }
+
+  public refreshApp(event) {
+    this._refreshProvider.refreshApp()
   }
 
   ionViewWillLeave() {

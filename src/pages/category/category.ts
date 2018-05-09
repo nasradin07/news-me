@@ -5,6 +5,7 @@ import { NewsProvider } from '../../providers/news';
 import { CacheProvider } from '../../providers/cache';
 import { ConfigurationProvider } from '../../providers/configuration';
 import { ChangePageProvider } from '../../providers/change-page';
+import { RefreshProvider } from '../../providers/refresh';
 
 @Component({
   selector: 'page-category',
@@ -25,6 +26,7 @@ export class CategoryPage {
     private _cacheProvider: CacheProvider,
     private _configurationProvider: ConfigurationProvider,
     private _changePageProvider: ChangePageProvider,
+    private _refreshProvider: RefreshProvider,
     private _changeDetectRef: ChangeDetectorRef
   ) {
     this.category = this.navParams.get('name');
@@ -87,6 +89,10 @@ export class CategoryPage {
 
   public openMenu(event) {
     this._changePageProvider.openMenu(event);
+  }
+
+  public refreshApp(event) {
+    this._refreshProvider.refreshApp();
   }
 
 }
