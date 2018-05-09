@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import { MenuController } from 'ionic-angular';
+import { MenuController, Platform } from 'ionic-angular';
 
 
 @Injectable()
@@ -13,7 +13,8 @@ export class ChangePageProvider {
   public toggleReplacementList$ = this._toggleReplacementList.asObservable();
 
   constructor(
-    private _menuCtrl: MenuController
+    private _menuCtrl: MenuController,
+    private _platform: Platform
   ) {
   }
 
@@ -26,7 +27,8 @@ export class ChangePageProvider {
   }
 
   public openMenu(event) {
-    if (Math.abs(event.overallVelocityX) < 0.3 ) {
+    const platformWidth = this._platform.width();
+    if (Math.abs(event.overallVelocityX) < 0.2 || platformWidth/8 > event.deltaX) {
       return;
     }
     if (event.deltaX > 0) {

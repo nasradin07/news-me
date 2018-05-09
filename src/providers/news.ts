@@ -4,6 +4,7 @@ import {Subject} from 'rxjs/Subject';
 import { InitialConfigurationProvider } from './initial-configuration';
 import { NewsFilterProvider } from './news-filter'; 
 import { LeftMenuProvider } from './left-menu';
+import { SourceMapGenerator } from '@angular/compiler/src/output/source_map';
 
 @Injectable()
 export class NewsProvider {
@@ -43,7 +44,15 @@ export class NewsProvider {
     } else {
       return false;
     }
-
+  }
+  public getNextArticle(oldArticleId, sourceName) {
+    let indexOfOldArticle = this.newsBySource[sourceName].findIndex((article, currIndex) => {
+      if (article._id === oldArticleId) {
+        return currIndex;
+      }
+    });
+    let article = this.newsBySource[sourceName][indexOfOldArticle + 1];
+    return article;
   }
 
   public sortNewsBySource(news) {

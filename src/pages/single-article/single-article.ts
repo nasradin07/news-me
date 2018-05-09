@@ -34,6 +34,7 @@ export class SingleArticlePage {
     this.date = (new Date(this.article.publishedAt)).toDateString();
     const source = this.article.source;
     this.notifyLeftMenuToShowNewsForSource(source);
+    console.log(this.article);
   }
 
   public loadNewArticle(event) {
@@ -72,6 +73,8 @@ export class SingleArticlePage {
       return this._newsProvider.getArticleByCategoryNameAndIndex(mutateName, indexForNextArticle);;
     } else if (this.sourceName !== undefined) {
       return this._newsProvider.getArticleBySourceNameAndIndex(this.sourceName, indexForNextArticle);
+    } else if(this.article.source) {
+      return this._newsProvider.getNextArticle(this.article._id, this.article.source);
     } else {
       return false;
     }
