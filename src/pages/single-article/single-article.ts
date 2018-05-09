@@ -34,7 +34,6 @@ export class SingleArticlePage {
     this.date = (new Date(this.article.publishedAt)).toDateString();
     const source = this.article.source;
     this.notifyLeftMenuToShowNewsForSource(source);
-    console.log(this.article);
   }
 
   public loadNewArticle(event) {
