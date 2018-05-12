@@ -1,3 +1,32 @@
-open-category {
+ion-footer > ion-grid > ion-row > ion-col > open-category-component > button {
+	background-color: transparent !important;
+	border: 0.3px solid darkgray;
+	box-shadow: 1px 0.5px 1px gray;
+}
 
+ion-footer > ion-grid > ion-row > ion-col > open-category-component > button > span {
+  background-image: url('../../assets/icons/icons.svg');
+  height: 35px !important;
+  width: 30px !important;
+  background-size: 700%;
+}
+
+button.general-news > span {
+  background-position: 5% 98%
+}
+
+button.bussines-news > span {
+  background-position: 25% 50%
+}
+
+button.sport-news > span {
+  background-position: 5% 50%
+}
+
+button.entertainment-news > span {
+  background-position: 44% 96%
+}
+
+button.programming-news > span {
+  background-position: 2% 2%
 }

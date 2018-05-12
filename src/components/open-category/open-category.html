@@ -1,11 +1,11 @@
 <!-- Generated template for the OpenCategoryComponent component -->
-<replacment-list 
+<replacment-list
 [showReplacementList]="showReplacementList"
 [category]="category"
 ></replacment-list>
-<button ion-button 
-  (touchstart)="openReplacementList($event, category)" 
+<button ion-button
+  (touchstart)="openReplacementList($event, category)"
   (touchend)="openPage(category.name)"
+  class="{{category.iconName}}"
 >
-  <ion-icon name="{{category.iconName}}"></ion-icon>
 </button>
