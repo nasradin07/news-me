@@ -12,6 +12,9 @@ export class ChangePageProvider {
   private _toggleReplacementList = new Subject();
   public toggleReplacementList$ = this._toggleReplacementList.asObservable();
 
+  private _sendPageNameToHeader = new Subject();
+  public sendPageNameToHeaderFetchEvent$ = this._sendPageNameToHeader.asObservable();
+
   constructor(
     private _menuCtrl: MenuController,
     private _platform: Platform
@@ -41,5 +44,9 @@ export class ChangePageProvider {
   public closeReplacementList() {
     this._toggleReplacementList.next(false);
   } 
+
+  public sendPageNameToHeader(pageName) {
+    this._sendPageNameToHeader.next(pageName);
+  }
 
 }

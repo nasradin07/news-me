@@ -9,7 +9,7 @@ import { StorageProvider } from './storage';
 export class ConfigurationProvider {
   allCategories: Array<{name: string, iconName: string}> = [
     { name: 'General News', iconName: 'albums'},
-    { name: 'Business News', iconName: 'briefcase'},
+    { name: 'Business News', iconName: 'custom-category'},
     { name: 'Programming News', iconName: 'laptop' },
     { name: 'Sport News', iconName: 'football'},
     { name: 'Entertainment News', iconName: 'easel'},

@@ -19,10 +19,10 @@ export class SpinnerPage {
   }
 
   ionViewDidLoad() {
-    this._subscribeToInitialCOnfigurationFetchEvent();
+    this._subscribeToInitialConfigurationFetchEvent();
   }
 
-  private _subscribeToInitialCOnfigurationFetchEvent() {
+  private _subscribeToInitialConfigurationFetchEvent() {
     this._subscriptions.push(
       this._initialConfigurationProvider.initialConfigurationFetchEvent$.subscribe(
         notification => {
