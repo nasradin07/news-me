@@ -8,14 +8,14 @@ import { StorageProvider } from './storage';
 @Injectable()
 export class ConfigurationProvider {
   allCategories: Array<{name: string, iconName: string}> = [
-    { name: 'General News', iconName: 'albums'},
-    { name: 'Business News', iconName: 'custom-category'},
-    { name: 'Programming News', iconName: 'laptop' },
-    { name: 'Sport News', iconName: 'football'},
-    { name: 'Entertainment News', iconName: 'easel'},
-    { name: 'Cryptocurrency News', iconName: 'cash'},
-    { name: 'Life Health Fitnes News', iconName: 'heart' },
-    { name: 'Technology News', iconName: 'phone-portrait' }
+    { name: 'General News', iconName: 'general-news'},
+    { name: 'Business News', iconName: 'bussines-news'},
+    { name: 'Programming News', iconName: 'programming-news' },
+    { name: 'Sport News', iconName: 'sport-news'},
+    { name: 'Entertainment News', iconName: 'entertainment-news'},
+    { name: 'Cryptocurrency News', iconName: 'cryptocurrencynews'},
+    { name: 'Life Health Fitnes News', iconName: 'life-health-fitnes-news' },
+    { name: 'Technology News', iconName: 'technology-news' }
   ];
   private _categoriesFetchEvent = new Subject();
   public  categoriesFetchEvent$ = this._categoriesFetchEvent.asObservable();
