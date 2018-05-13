@@ -9,11 +9,11 @@ import { StorageProvider } from './storage';
 export class ConfigurationProvider {
   allCategories: Array<{name: string, iconName: string}> = [
     { name: 'General News', iconName: 'general-news'},
-    { name: 'Business News', iconName: 'bussines-news'},
+    { name: 'Business News', iconName: 'business-news'},
     { name: 'Programming News', iconName: 'programming-news' },
     { name: 'Sport News', iconName: 'sport-news'},
     { name: 'Entertainment News', iconName: 'entertainment-news'},
-    { name: 'Cryptocurrency News', iconName: 'cryptocurrencynews'},
+    { name: 'Cryptocurrency News', iconName: 'cryptocurrency-news'},
     { name: 'Life Health Fitnes News', iconName: 'life-health-fitnes-news' },
     { name: 'Technology News', iconName: 'technology-news' }
   ];
@@ -67,6 +67,7 @@ export class ConfigurationProvider {
   }
 
   public getNumberOfNewsArticlesForLoad() {
+    console.log(this._initialConfigurationProvider.clientConfiguration);
     return this._initialConfigurationProvider.clientConfiguration['loadMoreBatch'];
   }
 

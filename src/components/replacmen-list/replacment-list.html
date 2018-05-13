@@ -1,14 +1,8 @@
-<!--<ion-list class="category-replacment-list" *ngIf="show" >
-  <ion-item *ngFor="let category of replacementCategories">
-    <button ion-button icon-only (click)="replaceCategory(category)" >
-      <ion-icon name="{{category.iconName}}"></ion-icon>
-    </button>
-  </ion-item>
-</ion-list>-->
+
 <ion-grid class="category-replacment-list" *ngIf="show">
   <ion-row *ngFor="let category of replacementCategories" >
-    <button ion-button icon-only (click)="replaceCategory(category)" >
-      <ion-icon name="{{category.iconName}}"></ion-icon>
+    <button ion-button class="{{category.iconName}}" (click)="replaceCategory(category)" >
+      
     </button>
   </ion-row>
 </ion-grid>

@@ -56,6 +56,7 @@ export class ReplacmentListComponent implements OnInit, OnDestroy{
 
   public replaceCategory(newCategory) {
     const oldCategory = this.category;
+    console.log(this.category);
     this._configurationProvider.replaceCategory(newCategory, oldCategory);
     this.closeReplacementList();
   }

@@ -1,13 +1,53 @@
 .category-replacment-list {
-    z-index: 12;
     width: 15vw;
+    height: 120px;
     position: fixed;
     bottom: 9vh;
     background-color: whitesmoke; 
 }
 
-ion-icon {
-    font-size: 25px;
+replacment-list > ion-grid > ion-row > button {
+    z-index: 99;
+	background-color: transparent !important;
+	border: 0.3px solid darkgray;
+    box-shadow: 1px 0.5px 1px gray;
 }
 
+ replacment-list > ion-grid > ion-row > button > span {
+  background-image: url('../../assets/icons/icons.svg');
+  height: 35px !important;
+  width: 30px !important;
+  background-size: 650%;
+}
 
+button.general-news > span {
+    background-position: 5% 98%
+  }
+  
+  button.business-news > span {
+    background-position: 25% 50%
+  }
+  
+  button.sport-news > span {
+    background-position: 5% 50%
+  }
+  
+  button.entertainment-news > span {
+    background-position: 44% 96%
+  }
+  
+  button.programming-news > span {
+    background-position: 2% 2%
+  }
+  
+  button.life-health-fitnes-news > span {
+    background-position: 23% 5%;
+  }
+  
+  button.technology-news > span {
+    background-position: 42% 50%;
+  }
+  
+  button.cryptocurrency-news {
+    background-position: 45% 18%;
+  }

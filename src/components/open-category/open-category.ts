@@ -27,6 +27,7 @@ export class OpenCategoryComponent implements OnDestroy{
     this.showReplacementList = false;
     event.preventDefault();
     this.mousepressed = true;
+    console.log(category);
     setTimeout(() => {
       if (this.mousepressed === true) {
         this.showReplacementList = true;
