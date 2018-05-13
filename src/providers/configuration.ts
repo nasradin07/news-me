@@ -67,7 +67,6 @@ export class ConfigurationProvider {
   }
 
   public getNumberOfNewsArticlesForLoad() {
-    console.log(this._initialConfigurationProvider.clientConfiguration);
     return this._initialConfigurationProvider.clientConfiguration['loadMoreBatch'];
   }
 
