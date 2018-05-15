@@ -1,3 +1,24 @@
-header {
+ion-header > ion-navbar > button {
+    background-color: transparent !important;
+    border: 0.3px solid darkgray;
+    box-shadow: 1px 0.5px 1px gray;
+}
 
+ion-header > ion-navbar > button > span {
+    background-image: url('../../assets/icons/icons.svg');
+    height: 35px !important;
+    width: 32px !important;
+    background-size: 600%;
+}
+
+button.menu-button > span {
+    background-position: 21% 98%
+}
+
+button.log-in > span {
+    background-position: 60% 50%; 
+}
+
+button.back-button > span {
+    background-image: none;
 }

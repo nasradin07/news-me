@@ -1,11 +1,9 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button [menuToggle]="left" persistent="true">
-      <ion-icon name="menu"></ion-icon>
+    <button ion-button 
+      class="menu-button" [menuToggle]="left" persistent="true">
     </button>
     <ion-title>{{name}}</ion-title>
-    <button ion-button menuToggle="right" right >
-      <ion-icon name="person"></ion-icon>
-    </button>
+    <button ion-button class="log-in" menuToggle="right" right ></button>
   </ion-navbar>
 </ion-header>

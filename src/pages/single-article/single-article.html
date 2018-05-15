@@ -24,16 +24,14 @@
     
       <ion-row>
         <ion-col>
-          <button ion-button (click)="goToSource()">
-            Go To Source
-          </button>
+          <span>
+            <button  ion-button (click)="goToSource()">
+              Go To Source
+            </button>
+          </span>
         </ion-col>
         <ion-col>
-          <button ion-button (click)="like(article._id)" >
-            <ion-icon name="thumbs-up"></ion-icon>
-          </button>
-          <button ion-button (click)="dislike(article._id)">
-            <ion-icon name="thumbs-down"></ion-icon>
+          <button ion-button (click)="like(article._id)" class="like" >
           </button>
         </ion-col>
       </ion-row>

@@ -1,7 +1,22 @@
-page-single-article {
-
-}
 .wrapper {
     height: 100vh;
     width: 100vw;
 } 
+
+ion-card > ion-row > ion-col > button {
+    background-color: transparent !important;
+    border: 0.3px solid darkgray; 
+    box-shadow: 1px 0.5px 1px gray;
+}
+
+ion-card > ion-row > ion-col > button > span {
+    height: 35px !important;
+    width: 15px !important;
+    background-image: url('../../assets/icons/icons.svg');
+    background-size: 1250%;
+}
+
+button.like > span {
+    background-position: 78% 50%;
+}
+
