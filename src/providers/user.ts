@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class UserProvider {
-    private _user;
+    private _user = false;
     private _actionUrl = 'http://api-news-me.ml/public/news-action';
     constructor(
         private _http: HttpClient
@@ -13,7 +13,6 @@ export class UserProvider {
 
     public takeUserData(userData) {
         this._user = userData;
-        console.log(userData);
     }
 
     public addArticleToVisitedNews(newsId) {
@@ -27,9 +26,9 @@ export class UserProvider {
     }
 
     public isUserLoggedIn() {
-        if (this._user === undefined) {
+        if (this._user === false) {
             return false;
-        } else if (this._user !== undefined) {
+        } else {
             return true;
         }
     }
@@ -44,5 +43,9 @@ export class UserProvider {
 
     public getUserEmail() {
         return this._user['email'];
+    }
+
+    public removeUserData() {
+        this._user = false;
     }
 }

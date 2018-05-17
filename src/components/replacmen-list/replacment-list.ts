@@ -25,7 +25,7 @@ export class ReplacmentListComponent implements OnInit, OnDestroy{
   ngOnInit() {
     this.subscribeForReplacementCategoriesFetchEvent();
     this.subscribeToOpenReplacementListEvent();
-    this.getReplacementCategories();
+    this.initializeReplacementCategories();
     this._changeDetectRef.detectChanges()
   }
 
@@ -42,21 +42,22 @@ export class ReplacmentListComponent implements OnInit, OnDestroy{
   public subscribeForReplacementCategoriesFetchEvent() {
     this._subscriptions.push(
       this._configurationProvider.categoriesForReplacementFetchEvent$.subscribe(
-        replacementCategories => {
-          setTimeout( () => this.replacementCategories = replacementCategories, 0);
-          this._changeDetectRef.detectChanges();
+        notification => {
+          this.replacementCategories = this.getReplacementCategories();
         })
       );
   }
 
+  public initializeReplacementCategories() {
+    this._configurationProvider.initializeReplacementsCategory();
+  }
+
   public getReplacementCategories() {
-    this.replacementCategories = this._configurationProvider.getReplacementsCategory();
-    this._changeDetectRef.detectChanges();
+    return this._configurationProvider.getReplacementCategories();
   }
 
   public replaceCategory(newCategory) {
     const oldCategory = this.category;
-    console.log(this.category);
     this._configurationProvider.replaceCategory(newCategory, oldCategory);
     this.closeReplacementList();
   }

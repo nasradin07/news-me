@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, Input, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectorRef, Input,OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { CategoryPage } from '../../pages/category/category';
@@ -11,10 +11,11 @@ import { ChangePageProvider } from '../../providers/change-page';
   templateUrl: './open-category.html'
 })
 
-export class OpenCategoryComponent implements OnDestroy{
+export class OpenCategoryComponent implements OnInit, OnDestroy{
   @Input() category;
   mousepressed;
   showReplacementList: boolean = false;
+  iconName;
   private _subscriptions: Subscription[] = [];
   constructor(
     private _configurationProvider: ConfigurationProvider,
@@ -23,11 +24,18 @@ export class OpenCategoryComponent implements OnDestroy{
   ) {
   }
 
+  ngOnInit() {
+    this.getIconName();
+  }
+
+  getIconName() {
+    this.iconName = this.category.toLowerCase().replace( /\s/g, '-');
+  }
+
   public openReplacementList(event, category) {
     this.showReplacementList = false;
     event.preventDefault();
     this.mousepressed = true;
-    console.log(category);
     setTimeout(() => {
       if (this.mousepressed === true) {
         this.showReplacementList = true;
@@ -37,26 +45,18 @@ export class OpenCategoryComponent implements OnDestroy{
     }, 1000);
   }
 
-  public openPage(pageName) {
+  public openPage() {
     this.mousepressed = false;
     if (this.showReplacementList === true) {
       return;
     } else {
       const params = {
-        name: pageName
+        name: this.category
       };
       this._changePageProvider.changePage(CategoryPage, params);
     }
   }
 
-
-  public getNewsConfiguration() {
-    this._configurationProvider.getClientNewsConfiguration();
-  }
-
-  public saveNewsConfiguration(categories) {
-    this._configurationProvider.saveClientNewsConfiguration(categories);
-  }
 
   ngOnDestroy() {
     this._changeDetectRef.detach();

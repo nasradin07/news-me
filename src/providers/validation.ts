@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
 export class ValidationProvider {
 
   constructor() {
-    console.log('Hello ValidationProvider Provider');
   }
 
   public validateEmail(email) {

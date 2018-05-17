@@ -4,21 +4,16 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>Configuration</ion-title>
-  </ion-navbar>
-
-</ion-header>
+<header></header>
 
 
 <ion-content padding>
+  <br><br><br>
   <ion-list>
     <ion-item>
       <ion-label>Choose theme of aplication</ion-label>
-      <ion-select [(ngModel)]="userPreferedTheme" >
-        <ion-option *ngFor="let theme of themes" value="theme">{{theme}}</ion-option>
+      <ion-select [(ngModel)]="userConfiguration.colorTheme" >
+        <ion-option *ngFor="let theme of themes" value="{{theme}}" >{{theme}}</ion-option>
       </ion-select>
     </ion-item>
   </ion-list>
@@ -26,35 +21,12 @@
   <ion-list>
     <ion-item>
       <ion-label>Choose news categories</ion-label>
-      <ion-select [(ngModel)]="userPreferedNewsCategories" multiple="true">
-        <ion-option *ngFor="let category of newsCategories" value="category" >{{category}}</ion-option>
-      </ion-select>
-    </ion-item>
-  </ion-list>
-
-  <ion-list>
-    <ion-item>
-      <ion-label>Choose news source</ion-label>
-      <ion-select [(ngModel)]="userPreferedNewsSource" multiple="true">
-        <ion-option *ngFor="let source of newsSources" value="source">{{source}}</ion-option>
-      </ion-select>
-    </ion-item>
-  </ion-list>
-
-  <ion-list>
-    <ion-item>
-      <ion-label>Choose number of news shown in presenter</ion-label>
-      <ion-select [(ngModel)]="userPreferedNumberOfNews" multiple="true">
-        <ion-option *ngFor="let n of newsByCategory" value="n">{{n}}</ion-option>
-      </ion-select>
-    </ion-item>
-  </ion-list>
-
-  <ion-list>
-    <ion-item>
-      <ion-label>Choose how much news is loaded when scrolling</ion-label>
-      <ion-select [(ngModel)]="userPreferedLoadMoreBatch" multiple="true">
-        <ion-option *ngFor="let number of loadMoreBatch" value="number">{{number}}</ion-option>
+      <ion-select [(ngModel)]="userConfiguration.mainMenuOptions" multiple="true" 
+        okText="OK" cancelText="Cancel" (ionCancel)="cancel()" >
+        <ion-option disabled>You have to have 5 choosen options</ion-option>
+        <ion-option *ngFor="let category of allNewsCategories" value="{{category}}">
+          {{category}}
+        </ion-option>
       </ion-select>
     </ion-item>
   </ion-list>
@@ -62,8 +34,39 @@
   <ion-list>
     <ion-item>
       <ion-label>Enable notifications</ion-label>
-      <ion-select [(ngModel)]="enableNotifications" multiple="true">
-        <ion-option *ngFor="let option of newsSources" value="source">{{source}}</ion-option>
+      <ion-select [(ngModel)]="userConfiguration.notificationsEnabled">
+        <ion-option  value="true" >Yes</ion-option>
+        <ion-option  value="false" >No</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Enable weather</ion-label>
+      <ion-select [(ngModel)]="userConfiguration.weatherEnabled">
+        <ion-option  value="true" >Yes</ion-option>
+        <ion-option  value="false" >No</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Enable Cryptocurrency Checker</ion-label>
+      <ion-select [(ngModel)]="userConfiguration.cryptocurrencyCheckerEnabled">
+        <ion-option  value="true" >Yes</ion-option>
+        <ion-option  value="false" >No</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Enable Transportation Checker</ion-label>
+      <ion-select [(ngModel)]="userConfiguration.transportationCheckerEnabled">
+        <ion-option  value="true" >Yes</ion-option>
+        <ion-option  value="false" >No</ion-option>
       </ion-select>
     </ion-item>
   </ion-list>

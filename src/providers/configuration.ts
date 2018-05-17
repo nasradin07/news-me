@@ -4,35 +4,33 @@ import { Subject } from 'rxjs/Subject'
 
 import { InitialConfigurationProvider } from './initial-configuration';
 import { StorageProvider } from './storage';
+import { UserProvider } from './user';
 
 @Injectable()
 export class ConfigurationProvider {
-  allCategories: Array<{name: string, iconName: string}> = [
-    { name: 'General News', iconName: 'general-news'},
-    { name: 'Business News', iconName: 'business-news'},
-    { name: 'Programming News', iconName: 'programming-news' },
-    { name: 'Sport News', iconName: 'sport-news'},
-    { name: 'Entertainment News', iconName: 'entertainment-news'},
-    { name: 'Cryptocurrency News', iconName: 'cryptocurrency-news'},
-    { name: 'Life Health Fitnes News', iconName: 'life-health-fitnes-news' },
-    { name: 'Technology News', iconName: 'technology-news' }
+  allCategories: Array< string> = [
+    'General News','Business News','Programming News','Sport News','Entertainment News',
+    'Cryptocurrency News','Life Health Fitnes News','Technology News' 
   ];
   private _categoriesFetchEvent = new Subject();
   public  categoriesFetchEvent$ = this._categoriesFetchEvent.asObservable();
 
   private _categoriesForReplacementFetchEvent = new Subject();
   public categoriesForReplacementFetchEvent$ = this._categoriesForReplacementFetchEvent.asObservable();
-  categories;
-  categoryForReplacement;
+  _categories;
+  _replacementCategories;
+
+  public categoryForReplacement;
   constructor(
     private _http: HttpClient,
     private _initialConfigurationProvider: InitialConfigurationProvider,
-    private _storageProvider: StorageProvider
+    private _storageProvider: StorageProvider,
+    private _userProvider: UserProvider
   ) {
   }
 
   public getConfigurationOptions() {
-    const url = 'http://api-news-me.ml/public/configurations-with-options';
+    const url = 'http://api-news-me.ml/public/users/configuration';
     this._http.get(url).subscribe(
       response => console.log(response),
       err => console.log(err)
@@ -43,54 +41,89 @@ export class ConfigurationProvider {
     return this._initialConfigurationProvider.clientConfiguration;
   }
 
+  public getAllCategories() {
+    return this.allCategories;
+  }
+
+  public getNewsCategories() {
+    return this._categories;
+  }
+
+  public getReplacementCategories() {
+    return this._replacementCategories;
+  }
+
   public replaceCategory(newCategory, oldCategory) {
-    let indexOfOldCategory = this.categories.findIndex(category => category.name === oldCategory.name);
-    this.categories.splice(indexOfOldCategory, 1, newCategory);
-    this.getReplacementsCategory();
-    this.sendConfiguration(this.categories);
-    this.saveClientNewsConfiguration(this.categories);
+    let indexOfOldCategory = this._categories.findIndex(category => category === oldCategory);
+    this._categories.splice(indexOfOldCategory, 1, newCategory);
+    this.initializeReplacementsCategory();
+    this.notifyOfCategoriesFetchEvent();
+    this.saveClientNewsConfiguration(this._categories);
+    this.sendUserConfigurationToServer(this._categories);
   }
 
-  public saveCategoryForReplacement(category) {
-    this.categoryForReplacement = category;
-  }
-
-  public getReplacementsCategory() {
-    const replacementCategories =  this.allCategories.filter(category => {
-      return !this.categories.find(categoryUsed => categoryUsed.name === category.name )
+  public initializeReplacementsCategory() {
+    this._replacementCategories =  this.allCategories.filter(category => {
+      return !this._categories.find(categoryUsed => categoryUsed === category )
     });
-    this.sendReplacementsCategory(replacementCategories);
+    this.notifyReplacementsCategoryFetchEvent();
   }
 
-  public sendReplacementsCategory(replacementCategories) {
-    this._categoriesForReplacementFetchEvent.next(replacementCategories);
+  public notifyReplacementsCategoryFetchEvent() {
+    this._categoriesForReplacementFetchEvent.next(true);
   }
 
   public getNumberOfNewsArticlesForLoad() {
     return this._initialConfigurationProvider.clientConfiguration['loadMoreBatch'];
   }
 
-  public getClientNewsConfiguration() {
+  public initializeClientNewsConfiguration() {
     let key = 'clientNewsCategories';
     this._storageProvider.getData(key).then(categories => {
       if (categories !== null) {
-        this.categories = categories;
-        this.sendConfiguration(categories);
+        this._categories = categories;
       } else {
-         this.sendConfiguration(this.allCategories.slice(0,5));
-         this.saveClientNewsConfiguration(this.allCategories.slice(0,5));
+        this._categories = this.allCategories.slice(0,5);
+        this.saveClientNewsConfiguration(this.allCategories.slice(0,5));
       }
+      this.notifyOfCategoriesFetchEvent();
     });
   }
 
-  public sendConfiguration(categories) {
-    this._categoriesFetchEvent.next(categories)
+  public notifyOfCategoriesFetchEvent() {
+    this._categoriesFetchEvent.next(true)
   }
 
   public saveClientNewsConfiguration(newsConfiguration) {
     let key = 'clientNewsCategories';
-    this.categories = newsConfiguration;
+    this._categories = newsConfiguration;
     this._storageProvider.saveData(key,newsConfiguration);
+  }
+
+  public sendUserConfigurationToServer(configuration) {
+    if (this._userProvider.isUserLoggedIn() === true) {
+      configuration['userEmail'] = this._userProvider.getUserEmail();
+      this.updateUserConfguration(configuration);
+    }
+  }
+
+  public updateUserConfguration(configuration) {
+    const url = 'http://api-news-me.ml/public/users/configuration';
+    this._http.post(url, configuration).subscribe(
+      response => console.log(response),
+      err => console.log(err)
+    );
+  }
+
+  public saveCategoryForReplacement(categoryForReplacement) {
+    this.categoryForReplacement = categoryForReplacement;
+  }
+
+  public setUserNewsCategories(categories) {
+    let key = 'clientNewsCategories'
+    this._storageProvider.saveData(key, categories)
+      .then( (data) => this.initializeClientNewsConfiguration());
+
   }
 
 }

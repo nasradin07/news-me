@@ -6,7 +6,7 @@ import { UserProvider } from './user'
 
 @Injectable()
 export class LikeProvider {
-    private _url = 'http://api-news-me.ml/public/news-action';
+    private _url = 'http://api-news-me.ml/public/users/news-action';
     constructor(
         private _http: HttpClient,
         private _storageProvider: StorageProvider,

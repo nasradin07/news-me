@@ -6,7 +6,7 @@ import { UserProvider } from './user';
 
 @Injectable()
 export class RegisterProvider {
-  url: string = 'http://api-news-me.ml/public/register';
+  url: string = 'http://api-news-me.ml/public/users/register';
   private _messageSubject = new Subject();
   public sendMessage$ = this._messageSubject.asObservable();
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 
 import { ConfigurationProvider } from '../../providers/configuration';
@@ -15,20 +15,22 @@ export class FooterComponent implements OnInit, OnDestroy{
   private _subscriptions: Subscription[] = [];
   constructor(
     private _configurationProvider: ConfigurationProvider,
-    private _initialConfigurationProvider: InitialConfigurationProvider
+    private _initialConfigurationProvider: InitialConfigurationProvider,
+    private _changeDetectRef: ChangeDetectorRef
   ) { }
 
   ngOnInit(){
     this.subscribeToCategoryFetchEvent();
     this.subscribeToInitialConfigurationFetchEvent();
-    this.getNewsConfiguration();
+    this.initializeClientNewsConfiguration();
   }
 
   public subscribeToCategoryFetchEvent() {
     this._subscriptions.push(
       this._configurationProvider.categoriesFetchEvent$.subscribe(
-        categories => {
-          this.categories = categories;
+        notification => {
+          this.categories = this.getNewsCategories()
+          this._changeDetectRef.detectChanges();
         })
     );
   } 
@@ -41,8 +43,12 @@ export class FooterComponent implements OnInit, OnDestroy{
     )
   }
 
-  public getNewsConfiguration() {
-    this._configurationProvider.getClientNewsConfiguration();
+  public initializeClientNewsConfiguration() {
+    this._configurationProvider.initializeClientNewsConfiguration();
+  }
+
+  public getNewsCategories() {
+    return this._configurationProvider.getNewsCategories();
   }
 
   ngOnDestroy() {

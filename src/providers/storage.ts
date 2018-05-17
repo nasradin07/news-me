@@ -12,7 +12,7 @@ export class StorageProvider {
   }
 
   public saveData(key, data) {
-    this._storage.set(key, data);
+    return this._storage.set(key, data);
   } 
 
   public getData(key) {

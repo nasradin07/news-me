@@ -7,7 +7,7 @@ import { StorageProvider } from './storage';
 
 @Injectable()
 export class LoginProvider {
-  private _url: string = 'http://api-news-me.ml/public/login';
+  private _url: string = 'http://api-news-me.ml/public/users/login';
   private _messageSubject = new Subject();
   public sendMessage$ = this._messageSubject.asObservable();
   constructor(
@@ -37,16 +37,28 @@ export class LoginProvider {
   }
   
   public handleResponse(response) {
+    console.log(response);
     this._userProvider.takeUserData(response);
     const success = {
       status: 'success',
       message: 'You have successfully signed in'
     };
     this._storageProvider.getLikedNews()
-      .then(likedNews => {
-        likedNews.forEach(likedNewsId => this._userProvider.addArticleToVisitedNews(likedNewsId));
-      }).catch(err => console.log(err));
+      .then(likedNews => this.handleLikedNews(likedNews))
+      .catch(err => console.log(err));
     this._sendSuccessMessage(success);
+  }
+
+  public logOut() {
+    
+  }
+
+  public handleLikedNews(likedNews) {
+    if (likedNews === null) {
+      return;
+    } else {
+      likedNews.forEach( likedNewsId => this._userProvider.addArticleToVisitedNews(likedNewsId));
+    }
   }
 
   public loginUserAutomaticly() {

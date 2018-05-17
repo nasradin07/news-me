@@ -68,7 +68,7 @@ export class LoginPage {
   }
 
   public signOut() {
-    console.log('Signing out');
+    this._loginProvider.log
   }
 
   public askDoesUserWantToSavePassword() {
@@ -106,7 +106,7 @@ export class LoginPage {
   }
 
   public goToHome() {
-    this.navCtrl.setRoot(HomePage);
+    this.navCtrl.setRoot(HomePage, {name: 'top-headlines'});
   }
 
   public register() {
