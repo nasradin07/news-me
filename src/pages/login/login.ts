@@ -68,7 +68,7 @@ export class LoginPage {
   }
 
   public signOut() {
-    this._loginProvider.log
+    this._loginProvider.logOut();
   }
 
   public askDoesUserWantToSavePassword() {
