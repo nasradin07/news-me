@@ -30,14 +30,13 @@ export class LoginProvider {
 
   public handleError(errorObj) {
     const error = {
-      status: 'filed',
-      message: errorObj.message
+      status: 'failed',
+      message: 'User dont exist'
     };
     this._sendErrorMessage(error);
   }
   
   public handleResponse(response) {
-    console.log(response);
     this._userProvider.takeUserData(response);
     const success = {
       status: 'success',
