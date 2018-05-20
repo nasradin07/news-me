@@ -7,7 +7,7 @@
 <header></header>
 
 
-<ion-content padding>
+<ion-content padding (click)="closeReplacementList()">
   <br><br><br><br><br>
   <ion-list *ngIf="!isUserLoggedIn">
     <ion-item *ngIf="error.show" >

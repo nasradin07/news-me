@@ -1,7 +1,7 @@
 
 <ion-grid class="category-replacment-list" *ngIf="show">
   <ion-row *ngFor="let category of replacementCategories" >
-    <button ion-button class="{{category.iconName}}" (click)="replaceCategory(category)" >
+    <button ion-button class="{{getClassName(category)}}" (click)="replaceCategory(category)" >
       
     </button>
   </ion-row>

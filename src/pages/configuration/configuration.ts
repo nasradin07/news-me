@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { ConfigurationProvider } from '../../providers/configuration';
 import { CacheProvider } from '../../providers/cache';
+import { ChangePageProvider } from '../../providers/change-page';
 
 @Component({
   selector: 'page-configuration',
@@ -29,6 +30,7 @@ export class ConfigurationPage {
     public navParams: NavParams,
     private _configurationProvider: ConfigurationProvider,
     private _cacheProvider: CacheProvider,
+    private _changePageProvider: ChangePageProvider,
     private _changeDetectRef: ChangeDetectorRef,
     private _alertCtrl: AlertController
   ) {
@@ -97,6 +99,10 @@ export class ConfigurationPage {
 
   public clearCache() {
     this._cacheProvider.clearCache();
+  }
+
+  public closeReplacementList() {
+    this._changePageProvider.closeReplacementList();
   }
 
   ionViewDidLeave() {

@@ -10,10 +10,13 @@ import { ChangePageProvider } from '../../providers/change-page';
 })
 export class ReplacmentListComponent implements OnInit, OnDestroy{
   public show;
+  _category;
   @Input() set showReplacementList( show: boolean) {
     this.show = show;
   }
-  @Input() category;
+  @Input() set category(category: string) {
+    this._category = category.toLowerCase().replace(/\s/g, '-');
+  }
   _subscriptions: Subscription[] = [];
   replacementCategories;
   constructor(
@@ -26,6 +29,7 @@ export class ReplacmentListComponent implements OnInit, OnDestroy{
     this.subscribeForReplacementCategoriesFetchEvent();
     this.subscribeToOpenReplacementListEvent();
     this.initializeReplacementCategories();
+
     this._changeDetectRef.detectChanges()
   }
 
@@ -57,13 +61,17 @@ export class ReplacmentListComponent implements OnInit, OnDestroy{
   }
 
   public replaceCategory(newCategory) {
-    const oldCategory = this.category;
+    const oldCategory = this._category;
     this._configurationProvider.replaceCategory(newCategory, oldCategory);
     this.closeReplacementList();
   }
 
   public closeReplacementList() {
     this.show = false;
+  }
+
+  public getClassName(category) {
+    return category.toLowerCase().replace(/\s/g, '-');
   }
 
   ngOnDestroy() {

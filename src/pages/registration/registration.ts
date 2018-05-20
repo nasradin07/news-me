@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 // PROVIDES
 import { ValidationProvider } from '../../providers/validation';
 import { RegisterProvider } from '../../providers/register';
-
+import { ChangePageProvider } from '../../providers/change-page';
 // PAGES
 import { HomePage } from '../home/home';
 
@@ -26,11 +26,13 @@ export class RegistrationPage {
   showYearOfBirthError = false;
   registrationError: {show: boolean, message: string} = {show: false,message: ''};
   constructor(
-    public navCtrl: NavController, public navParams: NavParams,
-    private _validationProvider: ValidationProvider, private _registerProvider: RegisterProvider,
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    private _validationProvider: ValidationProvider, 
+    private _registerProvider: RegisterProvider,
+    private _changePageProvider: ChangePageProvider,
     private _changeDetectorRef: ChangeDetectorRef
-  ) {
-  }
+  ) {  }
 
   ionViewDidLoad() {
     this._subscribeToRegisterEvent();
@@ -94,6 +96,10 @@ export class RegistrationPage {
 
   public goBack() {
     this.navCtrl.pop();
+  }
+
+  public closeReplacementList() {
+    this._changePageProvider.closeReplacementList();
   }
 
   ionViewDidLeave() {

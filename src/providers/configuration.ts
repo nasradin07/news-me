@@ -59,7 +59,6 @@ export class ConfigurationProvider {
     this.initializeReplacementsCategory();
     this.notifyOfCategoriesFetchEvent();
     this.saveClientNewsConfiguration(this._categories);
-    this.sendUserConfigurationToServer(this._categories);
   }
 
   public initializeReplacementsCategory() {
@@ -104,10 +103,11 @@ export class ConfigurationProvider {
     if (this._userProvider.isUserLoggedIn() === true) {
       configuration['userEmail'] = this._userProvider.getUserEmail();
       this.updateUserConfguration(configuration);
-    }
+    } 
   }
 
   public updateUserConfguration(configuration) {
+    console.log('Called update confgih');
     const url = 'http://api-news-me.ml/public/users/configuration';
     this._http.post(url, configuration).subscribe(
       response => console.log(response),

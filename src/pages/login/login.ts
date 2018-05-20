@@ -7,6 +7,7 @@ import { LoginProvider } from '../../providers/login';
 import { ValidationProvider } from '../../providers/validation';
 import { StorageProvider  } from '../../providers/storage';
 import { UserProvider } from '../../providers/user';
+import { ChangePageProvider } from '../../providers/change-page';
 // PAGES
 import { HomePage } from '../home/home';
 import { RegistrationPage } from '../registration/registration'
@@ -31,7 +32,8 @@ export class LoginPage {
     private _loginProvider: LoginProvider,
     private _validationProvider: ValidationProvider,
     private _storageProvider: StorageProvider,
-    private _userProvider: UserProvider
+    private _userProvider: UserProvider,
+    private _changePageProvider: ChangePageProvider
   ) { }
 
   ionViewDidLoad() {
@@ -132,6 +134,10 @@ export class LoginPage {
 
   private _unsubscribeAll() {
     this._subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
+
+  public closeReplacementList() {
+    this._changePageProvider.closeReplacementList();
   }
 
   ionViewDidLeave() {
