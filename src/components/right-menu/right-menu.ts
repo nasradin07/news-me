@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { LoginPage } from '../../pages/login/login';
 import { RegistrationPage } from '../../pages/registration/registration';
 import { HistoryPage } from '../../pages/history/history';
 import { ConfigurationPage } from '../../pages/configuration/configuration';
 
 import { ChangePageProvider } from '../../providers/change-page';
+import { UserProvider } from '../../providers/user';
 
 @Component({
   selector: 'right-menu',
@@ -13,9 +14,10 @@ import { ChangePageProvider } from '../../providers/change-page';
 export class RightMenuComponent {
   @Input() content;
   menuPages: Array<{title: string, component: any}>;
-
+  isUserLoggedIn: boolean;
   constructor(
-    private _changePageProvidder: ChangePageProvider
+    private _changePageProvidder: ChangePageProvider,
+    private _userProvider: UserProvider
   ) {
     this.menuPages = [
       { title: 'Login', component: LoginPage },
@@ -24,10 +26,12 @@ export class RightMenuComponent {
       { title: 'Configuration', component: ConfigurationPage }
     ];
   }
+
+  ngOnInit() {
+    this.isUserLoggedIn = this._userProvider.isUserLoggedIn();
+  }
  
   openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
     this._changePageProvidder.changePage(page.component);
   }
 }
