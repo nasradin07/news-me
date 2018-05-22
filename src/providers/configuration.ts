@@ -54,7 +54,7 @@ export class ConfigurationProvider {
   }
 
   public replaceCategory(newCategory, oldCategory) {
-    let indexOfOldCategory = this._categories.findIndex(category => category === oldCategory);
+    let indexOfOldCategory = this._categories.findIndex(category =>  category === oldCategory);
     this._categories.splice(indexOfOldCategory, 1, newCategory);
     this.initializeReplacementsCategory();
     this.notifyOfCategoriesFetchEvent();
@@ -107,7 +107,6 @@ export class ConfigurationProvider {
   }
 
   public updateUserConfguration(configuration) {
-    console.log('Called update confgih');
     const url = 'http://api-news-me.ml/public/users/configuration';
     this._http.post(url, configuration).subscribe(
       response => console.log(response),

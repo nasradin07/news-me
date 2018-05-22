@@ -1,10 +1,12 @@
-ion-header > ion-navbar > button {
+ion-header > ion-navbar > button,
+ion-header > ion-navbar > div > button {
     background-color: transparent !important;
     border: 0.3px solid darkgray;
     box-shadow: 1px 0.5px 1px gray;
 }
 
-ion-header > ion-navbar > button > span {
+ion-header > ion-navbar > button > span,
+ion-header > ion-navbar > div > button > span {
     background-image: url('../../assets/icons/icons.svg');
     height: 35px !important;
     width: 32px !important;
@@ -22,3 +24,22 @@ button.log-in > span {
 button.back-button > span {
     background-image: none;
 }
+
+div {
+    text-align: center;
+}
+
+div > button.scs-logo {
+    position: absolute;
+    top: 10%;
+    left: 45%;
+    padding: 0px 5px;
+}
+
+div > button.scs-logo > span {
+    background-image: url('../../assets/icons/logo-news-me.svg');
+    background-size: auto;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+

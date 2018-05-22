@@ -1,6 +1,11 @@
-<!-- Generated template for the NewsComponent component -->
 <ion-card>
   <ion-card-content>
+    <ion-item>
+      <ion-avatar item-end>
+        <span class="{{className}}"></span>
+      </ion-avatar>
+      <p item-start>{{news.source}}</p>
+    </ion-item>
     <ion-card-title>{{news.title}}</ion-card-title>
   <img style="height:35vh; width:85vw" src="{{imageUrl}}">
     <p>{{news.description}}</p>

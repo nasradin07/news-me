@@ -29,7 +29,7 @@ export class FooterComponent implements OnInit, OnDestroy{
     this._subscriptions.push(
       this._configurationProvider.categoriesFetchEvent$.subscribe(
         notification => {
-          this.categories = this.getNewsCategories()
+          this.categories = this.getNewsCategories();
           this._changeDetectRef.detectChanges();
         })
     );

@@ -14,6 +14,7 @@ export class NewsComponent implements OnInit {
   @Input('i') index;
   @Input('category') parentCategory;
   @Input() source;
+  className
   imageUrl = '../../assets/imgs/default.png';
   constructor(
     private _changePageProvider: ChangePageProvider,
@@ -27,6 +28,7 @@ export class NewsComponent implements OnInit {
     if (this.checkIfDeviceIsOnline() === true) {
       this.imageUrl = this.news.urlToImage;
     }
+    this.getClassName();
   }
 
   public checkIfDeviceIsOnline() {
@@ -50,6 +52,11 @@ export class NewsComponent implements OnInit {
     } else {
       this._userProvider.addArticleToVisitedNews(newsId);
     }
+  }
+
+  public getClassName() {
+    this.className = this.news.source.toLowerCase()
+      .replace(/\s/g, '-').replace(/\(/g, '').replace(/\)/g,'').replace(/\./g,'-');
   }
 
 }

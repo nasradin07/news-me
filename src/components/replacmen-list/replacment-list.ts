@@ -15,7 +15,7 @@ export class ReplacmentListComponent implements OnInit, OnDestroy{
     this.show = show;
   }
   @Input() set category(category: string) {
-    this._category = category.toLowerCase().replace(/\s/g, '-');
+    this._category = category // .toLowerCase().replace(/\s/g, '-');
   }
   _subscriptions: Subscription[] = [];
   replacementCategories;
