@@ -1,20 +1,22 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { LoginPage } from '../../pages/login/login';
 import { RegistrationPage } from '../../pages/registration/registration';
 import { HistoryPage } from '../../pages/history/history';
 import { ConfigurationPage } from '../../pages/configuration/configuration';
 
 import { ChangePageProvider } from '../../providers/change-page';
+import { UserProvider } from '../../providers/user';
 
 @Component({
   selector: 'right-menu',
   templateUrl: 'right-menu.html'
 })
-export class RightMenuComponent {
+export class RightMenuComponent implements OnInit {
   @Input() content;
   menuPages: Array<{title: string, component: any}>;
   constructor(
-    private _changePageProvidder: ChangePageProvider
+    private _changePageProvidder: ChangePageProvider,
+    private _userProvider: UserProvider
   ) {
     this.menuPages = [
       { title: 'Login', component: LoginPage },
@@ -24,8 +26,25 @@ export class RightMenuComponent {
     ];
   }
 
+  ngOnInit() {
+
+  }
+
  
   openPage(page) {
     this._changePageProvidder.changePage(page.component);
+  }
+
+  public hideRegistrationAndLogin(p) {
+    if (p.title === 'Login' || p.title === 'Registration') {
+      if (this._userProvider.isUserLoggedIn() === true) {
+        return false;
+      } else {
+        return true;
+      }
+    } else{
+      //console.log('truesafsa',p);
+      return true;
+    }
   }
 }

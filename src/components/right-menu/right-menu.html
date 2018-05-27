@@ -7,11 +7,11 @@
   
     <ion-content>
       <ion-list>
-          <button menuClose="right" ion-item 
-          *ngFor="let p of menuPages" (click)="openPage(p)" 
-          >
+        <span *ngFor="let p of menuPages">
+          <button menuClose="right" *ngIf="hideRegistrationAndLogin(p)" ion-item (click)="openPage(p)" >
             {{p.title}}
           </button>
-        </ion-list>
+        </span>
+      </ion-list>
     </ion-content>
   </ion-menu>
