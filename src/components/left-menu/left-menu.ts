@@ -81,6 +81,10 @@ export class LeftMenuComponent {
     this._changePageProvider.changePage(SingleArticlePage, params);
   }
 
+  public closeReplacementList() {
+    this._changePageProvider.closeReplacementList();
+  }
+
   ionViewWillLeave() {
     this._subscriptions.forEach( subscription => subscription.unsubscribe());
   }

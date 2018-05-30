@@ -47,4 +47,8 @@ export class RightMenuComponent implements OnInit {
       return true;
     }
   }
+
+  public closeReplacementList() {
+    this._changePageProvidder.closeReplacementList();
+  }
 }

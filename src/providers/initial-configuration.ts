@@ -51,6 +51,7 @@ export class InitialConfigurationProvider {
   }
 
   public handleResponse(initialConfiguration) {
+    console.log(initialConfiguration);
     let allNews = initialConfiguration["newsCategories"];
     this.getNewsIdInLocalStorage().then(viewedNewsId => {
       this.allNews = {};
