@@ -18,6 +18,7 @@ export class LoginProvider {
   }
 
   public login(email, password) {
+    console.log('called login');
     this._http.post(this._url, {
         email: email,
         password: password
@@ -29,6 +30,7 @@ export class LoginProvider {
   }
 
   public handleError(errorObj) {
+    console.log('Err:','\n',errorObj);
     const error = {
       status: 'failed',
       message: 'User dont exist'
@@ -37,6 +39,7 @@ export class LoginProvider {
   }
   
   public handleResponse(response) {
+    console.log('res','\n',response)
     this._userProvider.takeUserData(response);
     const success = {
       status: 'success',
